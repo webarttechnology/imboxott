@@ -1,5 +1,6 @@
 import React from 'react';
 import { logos } from '../AppUtilities';
+import { NavLink } from 'react-router-dom';
 
 
 const Header = () => {
@@ -17,10 +18,10 @@ const Header = () => {
                             <span class="line"></span>
                         </div>
                         <ul>
-                            <li class="active"><a href="#">Home </a></li>
-                            <li><a href="#">Movies </a></li>
-                            <li><a href="#">Series</a></li>
-                            <li><a href="#">My List</a></li>
+                            <li><NavLink to="/">Home</NavLink></li>
+                            <li><NavLink to="/movie-list"> Movies </NavLink></li>
+                            <li><NavLink to="/Introduction">Series</NavLink></li>
+                            <li><NavLink to="/dd">My List</NavLink></li>
                         </ul>
                     </nav>
                     <ul class="infos">

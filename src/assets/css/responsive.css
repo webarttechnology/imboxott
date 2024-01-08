@@ -12,7 +12,7 @@
     
 }
 @media screen and (max-width: 1136px) {
-    .home_slider .owl-item img {
+    .home_slider .item img {
         height: 580px;
         object-fit: cover;
     }
@@ -50,7 +50,7 @@
         padding: 50px 0;
         text-align: center;
     }
-    nav ul li a {
+    header nav ul li a {
         padding: 0px 20px;
     }
     .infos li a {
@@ -96,6 +96,19 @@
         flex: 0 0 330px;
         padding-right: 30px;
     }
+    /* .latest_release .react-multi-carousel-track {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    } */
+    .latest_release .row {
+        min-height: auto;
+    }
+    .movie_content {
+        padding: 30px 8px;
+    }
+    .btn.btn_samll {
+        width: 123px;
+    }
 }
 @media screen and (max-width:767px) {
     .single_reviws .text-end {
@@ -133,7 +146,7 @@
     }
     .btn.btn_samll {
         font-size: 94%;
-        width: calc(100% - 43px);
+        width: calc(100% - 58px);
     }
     .movie_content .caption_info, .movie_content .caption_info .badge {
         font-size: 82%;
@@ -189,6 +202,7 @@
         top: 0;
     }
     
+    
 }
 @media screen and (max-width:736px) {
     .movie_details_Banner .col-sm-11.d-flex {
@@ -201,11 +215,25 @@
         padding:0 30px;
         margin-bottom: 15px;
     }
+    .latest_release .react-multi-carousel-item > div:hover {
+        transform: none;
+        border-color: var(--bs-light);
+    }
+    .latest_release .react-multi-carousel-track {
+        padding-top: 40px;
+        padding-bottom: 80px;
+    }
+    ul.d-flex.reviws_btn.mb-5 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
 }
 @media screen and (max-width:667px) {
     .downloads .btn {
-        margin:0 0 10px;
+        margin: 0 5px 10px;
     }
+    .top_week a {display: block;}
     h1 {
         font-size: 30px;
     }
@@ -250,6 +278,28 @@
         position: static;
         top: 31px;
         position: relative;
+    }
+    h2 {
+        font-size: 28px;
+    }
+    .mb-4 {
+        margin-bottom: 1rem!important;
+    }
+    .movies {
+        margin-top:15px;
+    }
+    .users .btn {
+        min-width: 126px;
+    }
+    .tab_heading {
+        font-size: 22px;
+    }
+    body {
+        font-size: 14px;
+    }
+    ul.d-flex.reviws_btn .btn {
+        padding: 12px 15px;
+        font-size: 12px;
     }
     
 }

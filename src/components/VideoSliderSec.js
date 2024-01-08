@@ -1,14 +1,14 @@
 import React from 'react';
-import BrandSlider from "./BrandSlider";
+import VideoSliders from "./VideoSlider";
 
-const Brands = () => {
+const VideoSec = () => {
   return (
     <>
-    <section class="brands">
+     <section class="video_slier">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12">
-                  <BrandSlider/>
+                <div class="col-11">
+                    <VideoSliders/>
                 </div>
             </div>
         </div>
@@ -17,4 +17,4 @@ const Brands = () => {
   )
 }
 
-export default Brands
+export default VideoSec

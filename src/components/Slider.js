@@ -1,25 +1,30 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { latestSliders } from "../AppUtilities";
+import {latestSliders} from '../AppUtilities';
+import {movieTitles} from '../AppUtilities';
 
 const Slider = () => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 6,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 6,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 768 },
+      items: 4,
+    },
+    tabletlandscape: {
+      breakpoint: { max: 767, min: 667 },
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max:480, min: 0 },
       items: 1,
     },
   };
@@ -32,12 +37,13 @@ const Slider = () => {
         showDots={true}
         ssr={true} // means to render carousel on server-side.
         infinite={true}
+        center={true}
       >
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+              <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -76,9 +82,9 @@ const Slider = () => {
 
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -116,9 +122,9 @@ const Slider = () => {
         </div>
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -156,9 +162,9 @@ const Slider = () => {
         </div>
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -196,9 +202,9 @@ const Slider = () => {
         </div>
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -236,9 +242,9 @@ const Slider = () => {
         </div>
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -276,9 +282,9 @@ const Slider = () => {
         </div>
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now
@@ -316,9 +322,9 @@ const Slider = () => {
         </div>
         <div>
           <div class="item">
-            <img src="images/release/1.jpg" alt="" class="w-100 main_img" />
+            <img src={latestSliders} alt="" class="w-100 main_img" />
             <div class="movie_content">
-              <img src={latestSliders} alt="" class="img-fluid mb-2" />
+            <img src={movieTitles} alt="" class="img-fluid mb-2" />
               <span>
                 <a href="#" class="btn btn_samll btn-light">
                   <i class="bi bi-play-fill"></i> Watch Now

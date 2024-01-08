@@ -10,6 +10,9 @@ import video from "./assets/mov_bbb.mp4";
 import brands from "./assets/images/brand/Sponsor 1.png";
 import appsOne from "./assets/images/1.jpg";
 import appsTwo from "./assets/images/2.jpg";
+import movieCasts from "./assets/images/movie-details/cast/1.jpg";
+import movieCrew from "./assets/images/movie-details/crew/1.jpg";
+
 
 
 
@@ -27,3 +30,5 @@ export const videos= video;
 export const brand= brands;
 export const appOne= appsOne;
 export const appTwo= appsTwo;
+export const casts= movieCasts;
+export const crews= movieCrew;

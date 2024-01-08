@@ -1,5 +1,5 @@
 import React from "react";
-import {topMovieSlider} from '../AppUtilities'
+import MovieSlider from "./TopMoviesSlider";
 
 const TopMovie = () => {
     return (
@@ -14,78 +14,7 @@ const TopMovie = () => {
                     <div class="col-12">
                         <hr class="mt-4 mb-4"/>
 
-                        <div class="owl-carousel owl-theme">
-                            <div class="item">
-                            <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                    <h3>01</h3>
-                                    </center>
-                                </div>
-                                </a> 
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                        <h3>02</h3>
-                                    </center>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                        <h3>03</h3>
-                                    </center>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                        <h3>04</h3>
-                                    </center>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                        <h3>05</h3>
-                                    </center>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                        <h3>06</h3>
-                                    </center>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                <img src={topMovieSlider} alt="" class="w-100 main_img"/>
-                                <div class="week_content">
-                                    <center>
-                                        <h3>07</h3>
-                                    </center>
-                                </div>
-                                </a>
-                            </div>
-                        </div>
+                        <MovieSlider/>
                     </div>
                     
                 </div>

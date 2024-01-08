@@ -52,7 +52,6 @@ body {
     color: var(--bs-white);
     background: url(../images/body-bg.jpg) var(--theme-dark) repeat-y;
     position: relative;
-    overflow-x: hidden;
 }
 
 html {
@@ -193,7 +192,7 @@ header nav ul li a {
     transition: .3s ease-in-out;
 }
 
-.infos li a:hover, header nav ul li a:hover, header nav ul li.active a {
+.infos li a:hover, header nav ul li a:hover, header nav ul li a.active {
     color: var(--secondary-color);
 }
 header {
@@ -263,7 +262,7 @@ nav ul li a::after {
     visibility: hidden;
 }
 
-nav ul li a:hover::after, nav ul li.active a::after {
+nav ul li a:hover::after, nav ul li a.active::after {
     opacity: 1;
     visibility: visible;
 }
@@ -285,7 +284,7 @@ nav ul li a:hover::after, nav ul li.active a::after {
     transform: translateY(-50%);
 }
 
-.owl-theme .owl-nav [class*=owl-] {
+.react-multiple-carousel__arrow {
     margin: 0 !important;
     padding: 0 !important;
     width: 50px !important;
@@ -298,33 +297,41 @@ nav ul li a:hover::after, nav ul li.active a::after {
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 }
-.owl-theme .owl-nav [class*=owl-]:hover {
+.react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px) !important;
+}
+.react-multiple-carousel__arrow--right {
+    right: calc(1% + 1px) !important;
+}
+.react-multiple-carousel__arrow:hover {
     border: var(--secondary-color) 1px solid !important;
     color: var(--secondary-color);
 }
-
-.owl-carousel .owl-nav button.owl-next {
-    float: right;
+.react-multiple-carousel__arrow:hover::before {
+    color: var(--secondary-color);
+}
+.movie_content span .btn {
+    margin: 0 2px;
+}
+.react-multi-carousel-dot button {
+    width: 40px !important;
+    height: 4px !important;
+    border-radius: 50%;
+    padding: 0 !important;
+    border-color: var(--bs-white) !important;
+    border-radius: 0 !important;
+    opacity: 0.5 !important;
+}
+.react-multi-carousel-dot--active button {
+    border-color: var(--bs-white) !important; opacity: 1 !important;
+}
+.video_slier .react-multi-carousel-dot-list {
+    display: flex !important; bottom: 22px !important;
 }
 
-.owl-dots {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    bottom: 25px;
+.video_slier .item {
+    padding: 30px 0 80px;
 }
-
-.owl-theme .owl-dots .owl-dot span {
-    width: 40px;
-    height: 4px;
-    margin: 0 8px;
-    background: var(--bs-white);
-    transition: opacity .2s ease;
-    border-radius: 5px;
-    opacity: 0.4;
-}
-
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
     background: var(--bs-light);
     opacity: 1;
@@ -473,8 +480,10 @@ nav ul li a:hover::after, nav ul li.active a::after {
     width: 90px;
 }
 
-.latest_release .owl-item {
-    z-index: 1;
+.latest_release .react-multi-carousel-item {
+    padding: 0 5px; z-index: 1;
+ }
+ .latest_release .react-multi-carousel-item > div {
     -webkit-transition: .3s ease-in-out;
     -moz-transition: .3s ease-in-out;
     -o-transition: .3s ease-in-out;
@@ -483,16 +492,17 @@ nav ul li a:hover::after, nav ul li.active a::after {
     position: relative;
     border: var(--theme-dark) 1px solid;
     border-radius: 15px;
-    z-index: 1;
-}
-
-.latest_release .owl-item:hover {
+ }
+ .latest_release .react-multi-carousel-item:hover {
+    z-index: 9;
+ }
+ .latest_release .react-multi-carousel-item > div:hover {
     -moz-transform: scale(1.45, 1.3);
     -webkit-transform: scale(1.45, 1.3);
     -o-transform: scale(1.45, 1.3);
     -ms-transform: scale(1.45, 1.3);
     transform: scale(1.45, 1.3);
-    z-index: 9;
+    
     border-color: var(--bs-light);
 }
 
@@ -508,18 +518,16 @@ nav ul li a:hover::after, nav ul li.active a::after {
     border-radius: 15px;
 }
 
-.latest_release .owl-item:hover .item:before {
+.latest_release .react-multi-carousel-item > div:hover .item:before {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.77) 100%);
 }
 
-.latest_release .owl-carousel .owl-stage-outer {
+.latest_release .react-multi-carousel-track  {
     padding-top: 100px;
     padding-bottom: 80px;
 }
 
-.latest_release .owl-theme .owl-nav {
-    width: 98%;
-}
+
 
 .movie_content {
     position: absolute;
@@ -537,10 +545,11 @@ nav ul li a:hover::after, nav ul li.active a::after {
     visibility: hidden;
 }
 
-.latest_release .owl-item:hover .movie_content {
+.latest_release .react-multi-carousel-item > div:hover .movie_content {
     opacity: 1;
     visibility: visible;
 }
+.react-multi-carousel-dot-list {display: none !important;}
 
 .movie_content .caption_info, .movie_content .caption_info .badge {
     font-size: 48%;
@@ -612,12 +621,12 @@ nav ul li a:hover::after, nav ul li.active a::after {
 .top_week {
     background: var(--theme-dark);
 }
-.top_week .owl-item img {
+.top_week .react-multi-carousel-item img {
     border-radius: 15px;
 }
 
-.top_week .owl-item {
-    padding: 0 10px;
+.top_week .react-multi-carousel-item > div {
+    padding: 0 10px 70px;
     border-radius: 15px;
     overflow: hidden;
 }
@@ -667,10 +676,11 @@ nav ul li a:hover::after, nav ul li.active a::after {
     padding-top: 50px;
     font-family: 'aladinregular';
 }
-.top_week .owl-carousel.owl-drag .owl-item a:hover h3{
+.top_week .react-multi-carousel-item > div:hover h3{
     color: var(--primary-color);
     -webkit-text-stroke-color:var(--primary-color);
 }
+
 
 .n_geographic {
     margin: 50px 0 0;
@@ -700,6 +710,7 @@ nav ul li a:hover::after, nav ul li.active a::after {
 .top_week.original {
     position: relative;
     margin-top: -100px;
+    z-index: 1;
 }
 
 .video_slier {
@@ -737,6 +748,9 @@ nav ul li a:hover::after, nav ul li.active a::after {
     background: url(../images/brand.jpg) var(--theme-dark) no-repeat top left;
     background-size: cover;
     padding: 50px 0;
+}
+.brands .react-multiple-carousel__arrow--left , .brands .react-multiple-carousel__arrow--right {
+    display: none;
 }
 
 .like_together {

@@ -1,7 +1,7 @@
 import React from 'react'
-import {superHeroesSliders} from '../AppUtilities'
+import HeroSlider from "./SuperHeroSlider";
 
-const Superheroes = () => {
+const SuperHeroes = () => {
   return (
     <>
     <section class="top_week best_hero pt-5">
@@ -14,29 +14,7 @@ const Superheroes = () => {
                 <div class="col-12">
                     <hr class="mt-4 mb-4"/>
 
-                    <div class="owl-carousel owl-theme">
-                        
-                        <div class="item">
-                            <a href="#">
-                            <img src={superHeroesSliders} alt="" class="w-100 main_img"/>
-                            <div class="week_content">
-                                <center>
-                                    <h4>Justice League</h4>
-                                </center>
-                            </div>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                            <img src={superHeroesSliders} alt="" class="w-100 main_img"/>
-                            <div class="week_content">
-                                <center>
-                                    <h4>Justice League</h4>
-                                </center>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
+                    <HeroSlider/>
                 </div>
                 
             </div>
@@ -46,4 +24,4 @@ const Superheroes = () => {
   )
 }
 
-export default Superheroes
+export default SuperHeroes

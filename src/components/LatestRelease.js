@@ -1,6 +1,4 @@
 import React from "react";
-import {latestSliders} from '../AppUtilities';
-import {movieTitles} from '../AppUtilities';
 import Slider from "./Slider";
 
 const LatestRelease = () => {
@@ -12,7 +10,6 @@ const LatestRelease = () => {
                     <div class="col-12 p-0">
                         <h3 class="site_heading">Latest <span>Releases</span></h3>
                         <Slider/>
-                        
                     </div>
                 </div>
             </div>
