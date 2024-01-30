@@ -11,9 +11,19 @@ const Login = () => {
                 <h2 className="loginHeading">Login</h2>
                 <br />
                 <label>Email : </label>
-                <input className="form-control" placeholder="Email id" />
+                <input
+                  autocomplete={false}
+                  className="form-control"
+                  placeholder="Email id"
+                />
                 <label>Password : </label>
-                <input className="form-control" placeholder="Password" />
+                <input
+                  autocomplete={false}
+                  className="form-control"
+                  placeholder="Password"
+                  type="password"
+                />
+                <button class="btn btn-secondary2">Sign In</button>
               </div>
             </div>
           </div>

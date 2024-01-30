@@ -1243,7 +1243,7 @@ footer {
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
-  margin-top: 13rem;
+  margin-top: 9rem;
   z-index: 9999;
   position: relative;
   width: 100%;
@@ -1257,10 +1257,21 @@ footer {
 }
 
 .login label {
-  color: #cf1e22;
-  margin-bottom: 10px;
+  color: #d9d9d9;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 16px;
 }
 .login input {
   height: 50px;
   margin-bottom: 15px;
+  background: transparent;
+  border: 1px solid #8f090c;
+  color: #fff;
+}
+.login input:focus {
+  background: transparent;
+  box-shadow: 0 0 0 0.25rem rgb(233 132 12 / 50%);
+  border-color: #b4670a;
+  color: #fff;
 }
