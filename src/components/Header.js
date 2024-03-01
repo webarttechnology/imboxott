@@ -2,7 +2,7 @@ import React from "react";
 import { logos } from "../AppUtilities";
 import { Link, NavLink } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ setIsuser }) => {
   return (
     <>
       <header>
@@ -42,9 +42,9 @@ const Header = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i class="bi bi-bell"></i>
-                  </a>
+                  <Link to="/creator/sign-up" className="btn btn-secondary2">
+                    Become a creator
+                  </Link>
                 </li>
                 <li>
                   <Link to="/login">

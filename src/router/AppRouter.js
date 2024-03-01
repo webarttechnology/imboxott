@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Header from "../components/Header";
@@ -11,11 +11,14 @@ import Signup from "../pages/Auth/Signup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Forgotpass from "../pages/Auth/Forgotpass";
+import Creater from "../pages/Auth/Creater";
 const AppRouter = () => {
+  const [isUser, setIsuser] = useState(0);
+
   return (
     <>
       <Router>
-        <Header />
+        <Header setIsuser={setIsuser} />
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -23,7 +26,11 @@ const AppRouter = () => {
           <Route path="/movie-details" element={<MovieDetails />} />
           <Route path="/introduction" element={<Introdution />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/sign-up" element={<Signup isUser={isUser} />} />
+          <Route
+            path="/creator/sign-up"
+            element={<Creater isUser={isUser} />}
+          />
           <Route path="/forgot-password" element={<Forgotpass />} />
         </Routes>
         <Footer />

@@ -1222,11 +1222,11 @@ footer {
 }
 .loginPage {
   background-image: url("../images/login.jpg");
-  height: 100vh;
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  position: relative;
+  padding-bottom: 4em;
 }
 .loginPage::before {
   position: absolute;
@@ -1317,4 +1317,9 @@ footer {
   font-size: 15px;
   font-weight: 400;
   cursor: pointer;
+}
+.infos .btn-secondary2 {
+  text-transform: capitalize;
+  font-size: 15px;
+  padding: 6px 9px;
 }

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { MESSAGE, userSchema } from "../../schemas/Validation.js";
+import { MESSAGE, userSchemaCreator } from "../../schemas/Validation.js";
 import * as API from "../../API/Index.js";
 import { useNavigate } from "react-router";
 import OTPInput from "react-otp-input";
@@ -8,19 +8,20 @@ import { Link } from "react-router-dom";
 
 const initialValues = {
   name: "",
+  user_name: "",
   email: "",
   password: "",
   confirmPassword: "",
 };
 
-const Signup = ({ setIsLogin, isUser }) => {
+const Creater = ({ setIsLogin, isUser }) => {
   const navigate = useNavigate();
   const [isEmail, setIsEmail] = useState(0);
   const [otp, setOtp] = useState("");
   const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: userSchema,
+      validationSchema: userSchemaCreator,
       onSubmit: (values) => {
         submitButton(values);
       },
@@ -29,7 +30,7 @@ const Signup = ({ setIsLogin, isUser }) => {
   //? USER create
   const submitButton = async (values) => {
     Reflect.deleteProperty(values, "confirmPassword");
-    const reqObj = { ...values, role: "ott" };
+    const reqObj = { ...values, role: "creator" };
     console.log("reqObj", reqObj);
     const response = await API.user_registration(reqObj);
     console.log("response", response);
@@ -107,32 +108,26 @@ const Signup = ({ setIsLogin, isUser }) => {
                             </>
                           ) : null}
                         </div>
-                        {isUser === 0 ? (
-                          ""
-                        ) : (
-                          <div class="form-group">
-                            <input
-                              type="text"
-                              placeholder="Enter Your user name"
-                              class="form-control"
-                              name="user_name"
-                              value={values.user_name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            />
-                            <span class="form_icon">
-                              <i
-                                class="fa_icon form-user"
-                                aria-hidden="true"
-                              ></i>
-                            </span>
-                            {touched.user_name && errors.user_name ? (
-                              <>
-                                <p className="errorMess">{errors.user_name}</p>
-                              </>
-                            ) : null}
-                          </div>
-                        )}
+
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            placeholder="Enter Your user name"
+                            class="form-control"
+                            name="user_name"
+                            value={values.user_name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                          <span class="form_icon">
+                            <i class="fa_icon form-user" aria-hidden="true"></i>
+                          </span>
+                          {touched.user_name && errors.user_name ? (
+                            <>
+                              <p className="errorMess">{errors.user_name}</p>
+                            </>
+                          ) : null}
+                        </div>
                         <div class="form-group">
                           <input
                             type="text"
@@ -240,4 +235,4 @@ const Signup = ({ setIsLogin, isUser }) => {
   );
 };
 
-export default Signup;
+export default Creater;
