@@ -5,6 +5,7 @@ import * as API from "../../API/Index.js";
 import { useNavigate } from "react-router";
 import OTPInput from "react-otp-input";
 import { Link } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
 
 const initialValues = {
   name: "",
@@ -17,7 +18,8 @@ const Signup = ({ setIsLogin, isUser }) => {
   const navigate = useNavigate();
   const [isEmail, setIsEmail] = useState(0);
   const [otp, setOtp] = useState("");
-  const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
+  const [isLoader, setIsloader] = useState(false);
+  const { values, errors, handleBlur, setValues, handleSubmit, touched } =
     useFormik({
       initialValues: initialValues,
       validationSchema: userSchema,
@@ -25,9 +27,17 @@ const Signup = ({ setIsLogin, isUser }) => {
         submitButton(values);
       },
     });
-
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setIsloader(false);
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
   //? USER create
   const submitButton = async (values) => {
+    setIsloader(true);
     Reflect.deleteProperty(values, "confirmPassword");
     const reqObj = { ...values, role: "ott" };
     console.log("reqObj", reqObj);
@@ -35,6 +45,7 @@ const Signup = ({ setIsLogin, isUser }) => {
     console.log("response", response);
     if (response.data.success === 1) {
       setIsEmail(1);
+      setIsloader(false);
       const headerObj = {
         Authorization: `Bearer ${response.data.token_code}`,
       };
@@ -43,10 +54,12 @@ const Signup = ({ setIsLogin, isUser }) => {
       localStorage.setItem("__userId", response.data.data.id);
     } else {
       MESSAGE(response.data.msg);
+      setIsloader(false);
     }
   };
 
   const verifiOtp = async () => {
+    setIsloader(true);
     try {
       const reqObj = {
         email: values.email,
@@ -55,10 +68,12 @@ const Signup = ({ setIsLogin, isUser }) => {
       const response = await API.otp_varification(reqObj);
       console.log("response", response);
       if (response.data.success === 1) {
+        setIsloader(false);
         MESSAGE(response.data.msg, 1);
-        //navigate("/my-account");
+        navigate("/");
       } else {
         MESSAGE(response.data.msg);
+        setIsloader(false);
       }
     } catch (error) {}
   };
@@ -200,7 +215,21 @@ const Signup = ({ setIsLogin, isUser }) => {
                             </>
                           ) : null}
                         </div>
-                        <button class="btn btn-secondary2">register now</button>
+                        {isLoader ? (
+                          <button
+                            class="btn btn-secondary2"
+                            //onClick={submitButton}
+                          >
+                            <BeatLoader color="#fff" />
+                          </button>
+                        ) : (
+                          <button
+                            class="btn btn-secondary2"
+                            //onClick={submitButton}
+                          >
+                            register now
+                          </button>
+                        )}
                       </form>
                       <p>
                         Already Have An Account?{" "}
@@ -220,9 +249,16 @@ const Signup = ({ setIsLogin, isUser }) => {
                           renderInput={(props) => <input {...props} />}
                         />
                       </div>
-                      <button class="btn btn-secondary2" onClick={verifiOtp}>
-                        Verify OTP
-                      </button>
+                      {isLoader ? (
+                        <button class="btn btn-secondary2">
+                          <BeatLoader color="#fff" />
+                        </button>
+                      ) : (
+                        <button class="btn btn-secondary2" onClick={verifiOtp}>
+                          Verify OTP
+                        </button>
+                      )}
+
                       <p>
                         <span class="ms_modal resend" onClick={resendOtp}>
                           Resend OTP

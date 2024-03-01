@@ -5,6 +5,7 @@ import * as API from "../../API/Index.js";
 import { useNavigate } from "react-router";
 import OTPInput from "react-otp-input";
 import { Link } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
 
 const initialValues = {
   name: "",
@@ -52,6 +53,7 @@ const Creater = ({ setIsLogin, isUser }) => {
   };
 
   const verifiOtp = async () => {
+    setIsloader(true);
     try {
       const reqObj = {
         email: values.email,
@@ -60,9 +62,11 @@ const Creater = ({ setIsLogin, isUser }) => {
       const response = await API.otp_varification(reqObj);
       console.log("response", response);
       if (response.data.success === 1) {
+        setIsloader(false);
         MESSAGE(response.data.msg, 1);
-        //navigate("/my-account");
+        navigate("/");
       } else {
+        setIsloader(false);
         MESSAGE(response.data.msg);
       }
     } catch (error) {}
@@ -199,7 +203,15 @@ const Creater = ({ setIsLogin, isUser }) => {
                             </>
                           ) : null}
                         </div>
-                        <button class="btn btn-secondary2">register now</button>
+                        {isLoader ? (
+                          <button class="btn btn-secondary2">
+                            <BeatLoader color="#fff" />
+                          </button>
+                        ) : (
+                          <button class="btn btn-secondary2">
+                            register now
+                          </button>
+                        )}
                       </form>
                       <p>
                         Already Have An Account?{" "}
@@ -219,9 +231,16 @@ const Creater = ({ setIsLogin, isUser }) => {
                           renderInput={(props) => <input {...props} />}
                         />
                       </div>
-                      <button class="btn btn-secondary2" onClick={verifiOtp}>
-                        Verify OTP
-                      </button>
+                      {isLoader ? (
+                        <button class="btn btn-secondary2">
+                          <BeatLoader color="#fff" />
+                        </button>
+                      ) : (
+                        <button class="btn btn-secondary2" onClick={verifiOtp}>
+                          Verify OTP
+                        </button>
+                      )}
+
                       <p>
                         <span class="ms_modal resend" onClick={resendOtp}>
                           Resend OTP
