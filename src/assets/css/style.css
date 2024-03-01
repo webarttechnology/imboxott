@@ -1230,6 +1230,7 @@ footer {
 }
 .ms_register_form p a {
   color: #cf1e22;
+  text-transform: capitalize;
 }
 .loginPage::before {
   position: absolute;

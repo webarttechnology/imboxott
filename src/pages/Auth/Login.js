@@ -1,16 +1,18 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MESSAGE, loginSchema } from "../../schemas/Validation.js";
 import * as API from "../../API/Index.js";
 import { toast } from "react-toastify";
+import { BeatLoader } from "react-spinners";
 const initialValues = {
   email: "",
   password: "",
 };
 const Login = ({ setCartItem, setIsLogin }) => {
   const navigate = useNavigate();
-  const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
+  const [isLoader, setIsloader] = useState(false);
+  const { values, errors, handleBlur, setValues, handleSubmit, touched } =
     useFormik({
       initialValues: initialValues,
       validationSchema: loginSchema,
@@ -18,12 +20,24 @@ const Login = ({ setCartItem, setIsLogin }) => {
         loginSubmit(values);
       },
     });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setIsloader(false);
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
   const loginSubmit = async (value) => {
+    console.log("values", values);
+    setIsloader(true);
     try {
       const response = await API.user_login(value);
       console.log("response", response);
       if (response.data.success === 1) {
         MESSAGE(response.data.msg, 1);
+        setIsloader(false);
+        navigate("/");
         setCartItem(response.data.data.cart);
         const headerObj = {
           Authorization: `Bearer ${response.data.token_code}`,
@@ -32,9 +46,8 @@ const Login = ({ setCartItem, setIsLogin }) => {
         localStorage.setItem("isLogin", true);
         setIsLogin(localStorage.getItem("isLogin"));
         localStorage.setItem("__userId", response.data.data.id);
-        MESSAGE(response.data.msg, 1);
-        navigate("/my-account");
       } else {
+        setIsloader(false);
         MESSAGE(response.data.msg);
       }
     } catch (error) {}
@@ -88,9 +101,15 @@ const Login = ({ setCartItem, setIsLogin }) => {
                         </>
                       ) : null}
                     </div>
-                    <button class="btn btn-secondary2" onClick={loginSubmit}>
-                      login now
-                    </button>
+                    {isLoader ? (
+                      <button class="btn btn-secondary2">
+                        <BeatLoader color="#fff" />
+                      </button>
+                    ) : (
+                      <button class="btn btn-secondary2" onClick={loginSubmit}>
+                        login now
+                      </button>
+                    )}
                   </form>
                   <div class="popup_forgot">
                     <Link to="/forgot-password">Forgot Password ?</Link>

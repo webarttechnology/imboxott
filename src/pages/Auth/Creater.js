@@ -16,6 +16,7 @@ const initialValues = {
 
 const Creater = ({ setIsLogin, isUser }) => {
   const navigate = useNavigate();
+  const [isLoader, setIsloader] = useState(false);
   const [isEmail, setIsEmail] = useState(0);
   const [otp, setOtp] = useState("");
   const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
@@ -29,6 +30,7 @@ const Creater = ({ setIsLogin, isUser }) => {
 
   //? USER create
   const submitButton = async (values) => {
+    setIsloader(true);
     Reflect.deleteProperty(values, "confirmPassword");
     const reqObj = { ...values, role: "creator" };
     console.log("reqObj", reqObj);
@@ -36,6 +38,7 @@ const Creater = ({ setIsLogin, isUser }) => {
     console.log("response", response);
     if (response.data.success === 1) {
       setIsEmail(1);
+      setIsloader(false);
       const headerObj = {
         Authorization: `Bearer ${response.data.token_code}`,
       };
@@ -44,6 +47,7 @@ const Creater = ({ setIsLogin, isUser }) => {
       localStorage.setItem("__userId", response.data.data.id);
     } else {
       MESSAGE(response.data.msg);
+      setIsloader(false);
     }
   };
 
