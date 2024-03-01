@@ -1228,6 +1228,9 @@ footer {
   background-repeat: no-repeat;
   padding-bottom: 4em;
 }
+.ms_register_form p a {
+  color: #cf1e22;
+}
 .loginPage::before {
   position: absolute;
   content: "";

@@ -57,7 +57,7 @@ const Creater = ({ setIsLogin, isUser }) => {
       console.log("response", response);
       if (response.data.success === 1) {
         MESSAGE(response.data.msg, 1);
-        navigate("/my-account");
+        //navigate("/my-account");
       } else {
         MESSAGE(response.data.msg);
       }
