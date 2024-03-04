@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Forgotpass from "../pages/Auth/Forgotpass";
 import Creater from "../pages/Auth/Creater";
 import Introductions from "../pages/Creator/Introduction";
+import Myaccount from "../pages/Creator/Myaccount";
 const AppRouter = () => {
   const [isUser, setIsuser] = useState(0);
 
@@ -34,6 +35,7 @@ const AppRouter = () => {
           />
           <Route path="/creator/my-account" element={<Introductions />} />
           <Route path="/forgot-password" element={<Forgotpass />} />
+          <Route path="/profile" element={<Myaccount />} />
         </Routes>
         <Footer />
       </Router>

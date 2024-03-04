@@ -51,8 +51,19 @@ export const user_forgotPass = async (data) => {
 export const forgotPass_new = async (data) => {
   try {
     const url = c.URL + "/user/forget/pass/change";
-    console.log("url", url);
     const res = await axios.post(url, data);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const getuserDataID = async (data, header) => {
+  try {
+    const url = c.URL + "/user/details/" + data;
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+
     return res;
   } catch (e) {
     return e.response;
