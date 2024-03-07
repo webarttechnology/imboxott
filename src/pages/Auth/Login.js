@@ -33,19 +33,22 @@ const Login = ({ setCartItem, setIsLogin }) => {
     setIsloader(true);
     try {
       const response = await API.user_login(value);
-      console.log("response", response);
+      console.log("response", response.data.token);
       if (response.data.success === 1) {
         MESSAGE(response.data.msg, 1);
         setIsloader(false);
-        navigate("/");
-        setCartItem(response.data.data.cart);
         const headerObj = {
-          Authorization: `Bearer ${response.data.token_code}`,
+          Authorization: `Bearer ${response.data.token}`,
         };
         localStorage.setItem("_tokenCode", JSON.stringify(headerObj));
+        if (response.data.data.user_type === "creator") {
+          navigate("/profile");
+        } else {
+          navigate("/");
+        }
         localStorage.setItem("isLogin", true);
         setIsLogin(localStorage.getItem("isLogin"));
-        localStorage.setItem("__userId", response.data.data.id);
+        //localStorage.setItem("__userId", response.data.data.id);
       } else {
         setIsloader(false);
         MESSAGE(response.data.msg);

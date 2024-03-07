@@ -33,11 +33,10 @@ const ProfileSection = ({ userImg, inbanner, formData }) => {
                   </span>
                   <span>
                     <Link
-                      state={{ formData: formData }}
-                      to="/profile"
+                      to="/creator/my-account"
                       class="btn btn-outline-light"
                     >
-                      Profile
+                      Feed
                     </Link>
                   </span>
                 </center>

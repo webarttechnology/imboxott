@@ -974,7 +974,7 @@ footer {
   left: 0;
   top: 100%;
   right: 0;
-  width: 40%;
+  width: 100%;
   margin: 0 auto;
   height: 2px;
   background: var(--secondary-color);
@@ -1390,7 +1390,7 @@ footer {
   padding: 0;
 }
 .form-select {
-  color: var(--bs-white) !important;
+  color: #fff !important;
   background-color: #ffffff09 !important;
   border: none;
   border-bottom: 1px solid #fff;
@@ -1399,6 +1399,9 @@ footer {
   border: 1px solid #333;
   border-radius: 6px;
   height: 45px;
+}
+.form-select option {
+  color: #000;
 }
 .avatar-upload {
   position: relative;

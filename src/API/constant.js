@@ -9,3 +9,4 @@ export const URL = "https://imboxo.webartechnology.com/api";
 
 export const SIGNUP = `${URL}/register`;
 export const LOGIN = `${URL}/login`;
+export const CEATOR = `${URL}/creator`;

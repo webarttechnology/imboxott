@@ -4,6 +4,8 @@ import userImg from "../../assets/images/user.png";
 import ProfileSection from "./ProfileSection";
 import { useLocation, useNavigate } from "react-router";
 import * as API from "../../API/Index.js";
+import VideoUpload from "./VideoUpload.js";
+import { MESSAGE } from "../../schemas/Validation.js";
 const initialValues = {
   name: "",
   email: "",
@@ -11,44 +13,51 @@ const initialValues = {
   state: "",
   country: "",
   address: "",
-  address1: "",
   phone: "",
 };
 const Myaccount = () => {
   const location = useLocation();
   const [getUserData, setGetUserData] = useState("");
+  const [allCountryData, setAllCountryData] = useState([]);
+  const [allStateData, setAllStateData] = useState([]);
+  const [allCityData, setAllCityData] = useState([]);
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialValues);
+  const [errorName, setErrorName] = useState("");
+  const [errorCity, setErrorCity] = useState("");
+  const [errorState, setErrorState] = useState("");
+  const [errorCountry, setErrorCountry] = useState("");
+  const [countryData, setCountryData] = useState("");
+  const [stateData, setStateData] = useState("");
+  const [cityData, setCityData] = useState("");
+
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
     const header = localStorage.getItem("_tokenCode");
-    // if (name === "country") {
-    //   setCountryData(parseInt(e.target.value));
-    //   const stateresponse = await API.allState(e.target.value, header);
-    //   setAllStateData(stateresponse.data.data);
-    // }
-    // if (name === "state") {
-    //   setStateData(parseInt(e.target.value));
-    //   const cityresponse = await API.allCity(e.target.value, header);
-    //   setAllCityData(cityresponse.data.data);
-    // }
+    if (name === "country") {
+      setCountryData(parseInt(e.target.value));
+      const stateresponse = await API.allState(e.target.value, header);
+      setAllStateData(stateresponse.data.data);
+    }
+    if (name === "state") {
+      setStateData(parseInt(e.target.value));
+      const cityresponse = await API.allCity(e.target.value, header);
+      setAllCityData(cityresponse.data.data);
+    }
 
-    // if (name === "city") {
-    //   setCityData(parseInt(e.target.value));
-    // }
+    if (name === "city") {
+      setCityData(parseInt(e.target.value));
+    }
 
     setFormData({ ...formData, [name]: value });
   };
   const userDataGetById = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {
-      // const cresponse = await API.allCountry(header);
-      // setAllCountryData(cresponse.data.data);
-      // const musicBoxresponse = await API.orderHistroy(
-      //   localStorage.getItem("__userId"),
-      //   header
-      // );
-      // setOrderData(musicBoxresponse.data.data);
+      const cresponse = await API.allCountry(header);
+      console.log("cresponse", cresponse);
+      setAllCountryData(cresponse.data.data);
+
       const response = await API.getuserDataID(
         localStorage.getItem("__userId"),
         header
@@ -66,6 +75,64 @@ const Myaccount = () => {
       }
     } catch (error) {}
   };
+
+  const userdataUpdate = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const reqObj = {
+        name: formData.name,
+        city: typeof cityData === "number" ? cityData : "",
+        state: typeof stateData === "number" ? stateData : "",
+        country: typeof countryData === "number" ? countryData : "",
+        address: formData.address,
+        phone: formData.phone,
+        id: localStorage.getItem("__userId"),
+      };
+      console.log("reqObj", reqObj);
+      const response = await API.getuser_update(reqObj, header);
+      console.log("response", response);
+      if (response.data.data.success === 1) {
+        userDataGetById();
+        MESSAGE(response.data.data.msg, 1);
+      }
+    } catch {}
+    if (formData.name === "") {
+      setErrorName("This field is required");
+    } else if (formData.city === "") {
+      setErrorCity("This field is required");
+    } else if (formData.state === "") {
+      setErrorState("This field is required");
+    } else if (formData.country === "") {
+      setErrorCountry("This field is required");
+    }
+    if (
+      !formData.name ||
+      !formData.city ||
+      !formData.state ||
+      !formData.country
+    ) {
+    } else {
+      try {
+        const reqObj = {
+          name: formData.name,
+          city: typeof cityData === "number" ? cityData : "",
+          state: typeof stateData === "number" ? stateData : "",
+          country: typeof countryData === "number" ? countryData : "",
+          address: formData.address,
+          phone: formData.phone,
+          id: localStorage.getItem("__userId"),
+        };
+        console.log("reqObj", reqObj);
+        const response = await API.getuser_update(reqObj, header);
+        console.log("response", response);
+        if (response.data.data.success === 1) {
+          userDataGetById();
+          MESSAGE(response.data.data.msg, 1);
+        }
+      } catch (error) {}
+    }
+  };
+
   useEffect(() => {
     userDataGetById();
   }, []);
@@ -118,7 +185,7 @@ const Myaccount = () => {
                       </li>
                     </ul>
                     <div
-                      class="tab-content accordion col-sm-7"
+                      class="tab-content accordion col-sm-9"
                       id="myTabContent"
                     >
                       <div
@@ -128,9 +195,9 @@ const Myaccount = () => {
                         aria-labelledby="introduction-tab"
                         tabindex="0"
                       >
-                        <h3 class="text-center">Edit Your profile</h3>
+                        <h3 class="mb-3">Edit Your profile</h3>
                         <div class="row">
-                          <div class="mb-3 col-sm-12">
+                          {/* <div class="mb-3 col-sm-12">
                             <div class="avatar-upload">
                               <div class="avatar-edit">
                                 <input
@@ -144,7 +211,7 @@ const Myaccount = () => {
                                 <div id="imagePreview"></div>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <div class="mb-3 col-sm-6">
                             <input
                               type="text"
@@ -194,30 +261,55 @@ const Myaccount = () => {
                             />
                           </div>
                           <div class="mb-3 col-sm-4 col-md-6">
-                            <select class="form-select" id="" aria-label="">
-                              <option selected>Select Country</option>
+                            <select
+                              value={formData.country}
+                              onChange={handalerChanges}
+                              name="country"
+                              class="form-control form-select"
+                            >
+                              <option>--- Select ---</option>
+                              {allCountryData.map((item, index) => (
+                                <option key={item.id} value={item.id}>
+                                  {item.name}
+                                </option>
+                              ))}
                             </select>
                           </div>
                           <div class="mb-3 col-sm-4 col-md-6">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id=""
-                              placeholder="State"
-                            />
+                            <select
+                              onChange={handalerChanges}
+                              value={formData.state}
+                              name="state"
+                              class="form-control form-select"
+                            >
+                              <option>--- Select ---</option>
+                              {allStateData.map((item, index) => (
+                                <option value={item.id}>{item.name}</option>
+                              ))}
+                            </select>
                           </div>
                           <div class="mb-3 col-sm-4 col-md-6">
-                            <select class="form-select" id="" aria-label="">
-                              <option selected>Select City</option>
+                            <select
+                              value={formData.city}
+                              onChange={handalerChanges}
+                              name="city"
+                              class="form-control form-select"
+                            >
+                              <option>--- Select ---</option>
+                              {allCityData.map((item, index) => (
+                                <option value={item.id}>{item.name}</option>
+                              ))}
                             </select>
                           </div>
 
                           <div class="mt-3 text-center col-12">
-                            <input
+                            <button
                               type="button"
-                              value="Submit"
-                              class="btn btn btn-secondary2"
-                            />
+                              class="btn btn btn-secondary2 mt-3"
+                              onClick={userdataUpdate}
+                            >
+                              Update
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -228,132 +320,7 @@ const Myaccount = () => {
                         aria-labelledby="series-tab"
                         tabindex="0"
                       >
-                        <h3 class="mb-3">Video Uploads</h3>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id=""
-                                placeholder="Video Title"
-                              />
-                            </div>
-                            <div class="mb-3">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id=""
-                                placeholder="Sub Title"
-                              />
-                            </div>
-                            <div class="mb-3">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id=""
-                                placeholder="Add Duration"
-                              />
-                            </div>
-                            <div class="mb-3">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id=""
-                                placeholder="Cast"
-                              />
-                            </div>
-                            <div class="d-flex flex-wrap flex-row mt-3 justify-content-between">
-                              <label for="" class="w-100 mb-1">
-                                Choose age limit
-                              </label>
-                              <div class="form-check col-md-4">
-                                <input
-                                  type="radio"
-                                  class="form-check-input"
-                                  id="radio1"
-                                  name="optradio"
-                                  value="option1"
-                                />
-                                Option 1
-                                <label
-                                  class="form-check-label"
-                                  for="radio1"
-                                ></label>
-                              </div>
-                              <div class="form-check col-md-4">
-                                <input
-                                  type="radio"
-                                  class="form-check-input"
-                                  id="radio2"
-                                  name="optradio"
-                                  value="option2"
-                                />
-                                Option 2
-                                <label
-                                  class="form-check-label"
-                                  for="radio2"
-                                ></label>
-                              </div>
-                              <div class="form-check col-md-4">
-                                <input type="radio" class="form-check-input" />
-                                Option 3<label class="form-check-label"></label>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="mb-5">
-                              <textarea
-                                class="form-control"
-                                placeholder="Description comes here"
-                                id=""
-                              ></textarea>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <fieldset class="upload_dropZone text-center">
-                              <legend class="visually-hidden">
-                                Image uploader
-                              </legend>
-
-                              <i class="fa-solid fa-cloud-arrow-up"></i>
-
-                              <p class="small my-2">
-                                Drag &amp; Drop background image(s) inside
-                                dashed region
-                                <br />
-                                <span>or</span>
-                              </p>
-
-                              <input
-                                id="upload_image_background"
-                                data-post-name="image_background"
-                                data-post-url="https://someplace.com/image/uploads/backgrounds/"
-                                class="position-absolute invisible"
-                                type="file"
-                                multiple
-                                accept="image/jpeg, image/png, image/svg+xml"
-                              />
-
-                              <label
-                                class="btn btn-secondary2 mb-3"
-                                for="upload_image_background"
-                              >
-                                Choose file(s)
-                              </label>
-
-                              <div class="upload_gallery d-flex flex-wrap justify-content-center gap-2 mb-0"></div>
-                            </fieldset>
-                            <div class="text-end align-self-end">
-                              <input
-                                type="button"
-                                value="Submit"
-                                class="btn btn btn-secondary2 mt-3"
-                              />
-                            </div>
-                          </div>
-                        </div>
+                        <VideoUpload />
                       </div>
                     </div>
                   </div>
