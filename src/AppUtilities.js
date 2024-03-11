@@ -6,17 +6,12 @@ import topMovieSliders from "./assets/images/movies/1.jpg";
 import superHeroesSlider from "./assets/images/hero/1.jpg";
 import nGeographic from "./assets/images/ng.png";
 import originalSlider from "./assets/images/original/1.jpg";
-import video from "./assets/mov_bbb.mp4";
+import video from "./assets/images/1.jpg";
 import brands from "./assets/images/brand/Sponsor 1.png";
 import appsOne from "./assets/images/1.jpg";
 import appsTwo from "./assets/images/2.jpg";
 import movieCasts from "./assets/images/movie-details/cast/1.jpg";
 import movieCrew from "./assets/images/movie-details/crew/1.jpg";
-
-
-
-
-
 
 export const logos = logo;
 export const homeSliders = homeSlider;
@@ -25,10 +20,10 @@ export const movieTitles = movieTitle;
 export const topMovieSlider = topMovieSliders;
 export const superHeroesSliders = superHeroesSlider;
 export const nationalGeograhic = nGeographic;
-export const original= originalSlider;
-export const videos= video;
-export const brand= brands;
-export const appOne= appsOne;
-export const appTwo= appsTwo;
-export const casts= movieCasts;
-export const crews= movieCrew;
+export const original = originalSlider;
+export const videos = video;
+export const brand = brands;
+export const appOne = appsOne;
+export const appTwo = appsTwo;
+export const casts = movieCasts;
+export const crews = movieCrew;
