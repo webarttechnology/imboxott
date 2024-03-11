@@ -72,7 +72,7 @@ export const getuserDataID = async (data, header) => {
 
 export const creatorVideoAdd = async (data, header) => {
   try {
-    const url = c.URL + "/video/add";
+    const url = c.URL + "/creator/video/add";
     const res = await axios.post(url, data, {
       headers: JSON.parse(header),
     });
@@ -83,9 +83,10 @@ export const creatorVideoAdd = async (data, header) => {
 };
 
 export const getuser_update = async (data, header) => {
+  console.log("data", data);
   try {
-    const url = c.SIGNUP + "/user-update";
-    const res = await axios.patch(url, data, {
+    const url = c.URL + "/edit/profile";
+    const res = await axios.post(url, data, {
       headers: JSON.parse(header),
     });
     return res;
@@ -120,6 +121,18 @@ export const allState = async (data, header) => {
 export const allCity = async (data, header) => {
   try {
     const url = c.URL + "/get-city/" + data.catId + "/" + data.stateId;
+    console.log("url", url);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const allFlimeCartfikt = async (header) => {
+  try {
+    const url = c.URL + "/get-certificate";
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });

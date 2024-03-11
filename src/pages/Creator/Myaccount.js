@@ -14,6 +14,7 @@ const initialValues = {
   country: "",
   address: "",
   phone: "",
+  user_name: "",
 };
 const Myaccount = () => {
   const location = useLocation();
@@ -23,10 +24,8 @@ const Myaccount = () => {
   const [allCityData, setAllCityData] = useState([]);
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialValues);
-  const [errorName, setErrorName] = useState("");
-  const [errorCity, setErrorCity] = useState("");
-  const [errorState, setErrorState] = useState("");
-  const [errorCountry, setErrorCountry] = useState("");
+  const [allCartifi, setAllCartifi] = useState("");
+
   const [countryData, setCountryData] = useState("");
   const [stateData, setStateData] = useState("");
   const [cityData, setCityData] = useState("");
@@ -40,8 +39,14 @@ const Myaccount = () => {
       setAllStateData(stateresponse.data.data);
     }
     if (name === "state") {
+      const reqObj = {
+        catId: countryData,
+        stateId: e.target.value,
+      };
+      console.log("reqObj", reqObj);
       setStateData(parseInt(e.target.value));
-      const cityresponse = await API.allCity(e.target.value, header);
+      const cityresponse = await API.allCity(reqObj, header);
+      console.log("cityresponse", cityresponse);
       setAllCityData(cityresponse.data.data);
     }
 
@@ -51,24 +56,24 @@ const Myaccount = () => {
 
     setFormData({ ...formData, [name]: value });
   };
+
   const userDataGetById = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {
+      const cartResponse = await API.allFlimeCartfikt(header);
+      console.log("cartResponse", cartResponse);
+      setAllCartifi(cartResponse.data.data);
       const cresponse = await API.allCountry(header);
-      console.log("cresponse", cresponse);
       setAllCountryData(cresponse.data.data);
-
       const response = await API.getuserDataID(
         localStorage.getItem("__userId"),
         header
       );
-      console.log("response", response);
       setFormData(response.data.data);
       setGetUserData(response.data.data);
       if (response.data.is_login === false) {
         localStorage.removeItem("_tokenCode");
         localStorage.removeItem("isLogin");
-        //setIsLogin(localStorage.removeItem("isLogin"));
         if (localStorage.getItem("isLogin") === null) {
           navigate("/login");
         }
@@ -78,59 +83,38 @@ const Myaccount = () => {
 
   const userdataUpdate = async () => {
     const header = localStorage.getItem("_tokenCode");
+    console.log("formData.city", formData.city);
     try {
-      const reqObj = {
-        name: formData.name,
-        city: typeof cityData === "number" ? cityData : "",
-        state: typeof stateData === "number" ? stateData : "",
-        country: typeof countryData === "number" ? countryData : "",
-        address: formData.address,
-        phone: formData.phone,
-        id: localStorage.getItem("__userId"),
-      };
-      console.log("reqObj", reqObj);
-      const response = await API.getuser_update(reqObj, header);
+      const formDataReq = new FormData();
+      formDataReq.append("name", formData.name);
+      formDataReq.append("user_name", formData.user_name);
+      formDataReq.append(
+        "city",
+        typeof cityData === "number" ? cityData : formData.city
+      );
+      formDataReq.append("email", formData.email);
+      formDataReq.append("role", formData.user_type);
+      formDataReq.append(
+        "state",
+        typeof stateData === "number" ? stateData : formData.state
+      );
+      formDataReq.append(
+        "country",
+        typeof countryData === "number" ? countryData : formData.country
+      );
+      formDataReq.append("address", formData.address);
+      formDataReq.append("phone", formData.age_limit);
+      formDataReq.append("profile_img", formData.age_limit);
+      formDataReq.append("banner_img", formData.age_limit);
+      console.log("formDataReq", formDataReq);
+
+      const response = await API.getuser_update(formDataReq, header);
       console.log("response", response);
-      if (response.data.data.success === 1) {
+      if (response.data.success === 1) {
         userDataGetById();
-        MESSAGE(response.data.data.msg, 1);
+        MESSAGE(response.data.msg, 1);
       }
     } catch {}
-    if (formData.name === "") {
-      setErrorName("This field is required");
-    } else if (formData.city === "") {
-      setErrorCity("This field is required");
-    } else if (formData.state === "") {
-      setErrorState("This field is required");
-    } else if (formData.country === "") {
-      setErrorCountry("This field is required");
-    }
-    if (
-      !formData.name ||
-      !formData.city ||
-      !formData.state ||
-      !formData.country
-    ) {
-    } else {
-      try {
-        const reqObj = {
-          name: formData.name,
-          city: typeof cityData === "number" ? cityData : "",
-          state: typeof stateData === "number" ? stateData : "",
-          country: typeof countryData === "number" ? countryData : "",
-          address: formData.address,
-          phone: formData.phone,
-          id: localStorage.getItem("__userId"),
-        };
-        console.log("reqObj", reqObj);
-        const response = await API.getuser_update(reqObj, header);
-        console.log("response", response);
-        if (response.data.data.success === 1) {
-          userDataGetById();
-          MESSAGE(response.data.data.msg, 1);
-        }
-      } catch (error) {}
-    }
   };
 
   useEffect(() => {
@@ -213,6 +197,7 @@ const Myaccount = () => {
                             </div>
                           </div> */}
                           <div class="mb-3 col-sm-6">
+                            <label>Name </label>
                             <input
                               type="text"
                               placeholder="Enter Your Name"
@@ -223,6 +208,7 @@ const Myaccount = () => {
                             />
                           </div>
                           <div className="mb-3 col-sm-6">
+                            <label>User Name </label>
                             <input
                               type="text"
                               placeholder="Enter Your user name"
@@ -233,6 +219,7 @@ const Myaccount = () => {
                             />
                           </div>
                           <div class="mb-3 col-sm-6">
+                            <label>Email </label>
                             <input
                               type="text"
                               placeholder="Enter Your Email"
@@ -245,6 +232,7 @@ const Myaccount = () => {
                             />
                           </div>
                           <div class="mb-3 col-sm-6">
+                            <label>Phone No </label>
                             <input
                               type="text"
                               class="form-control"
@@ -253,14 +241,28 @@ const Myaccount = () => {
                             />
                           </div>
                           <div class="mb-3 col-sm-6">
+                            <label>Adderss</label>
                             <input
                               type="text"
                               class="form-control"
-                              id=""
+                              value={formData.address}
+                              onChange={handalerChanges}
+                              name="address"
                               placeholder="Address"
                             />
                           </div>
                           <div class="mb-3 col-sm-4 col-md-6">
+                            <label>
+                              Country{" "}
+                              {getUserData.country ? (
+                                <span className="text-lights">
+                                  {" "}
+                                  {getUserData.country}
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                            </label>
                             <select
                               value={formData.country}
                               onChange={handalerChanges}
@@ -276,6 +278,18 @@ const Myaccount = () => {
                             </select>
                           </div>
                           <div class="mb-3 col-sm-4 col-md-6">
+                            <label>
+                              State{" "}
+                              {getUserData.state ? (
+                                <span className="text-lights">
+                                  {" "}
+                                  {getUserData.state}
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                            </label>
+
                             <select
                               onChange={handalerChanges}
                               value={formData.state}
@@ -289,6 +303,17 @@ const Myaccount = () => {
                             </select>
                           </div>
                           <div class="mb-3 col-sm-4 col-md-6">
+                            <label>
+                              City{" "}
+                              {getUserData.city ? (
+                                <span className="text-lights">
+                                  {" "}
+                                  {getUserData.city}
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                            </label>
                             <select
                               value={formData.city}
                               onChange={handalerChanges}
@@ -320,7 +345,7 @@ const Myaccount = () => {
                         aria-labelledby="series-tab"
                         tabindex="0"
                       >
-                        <VideoUpload />
+                        <VideoUpload allCartifi={allCartifi} />
                       </div>
                     </div>
                   </div>

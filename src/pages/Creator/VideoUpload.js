@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as API from "../../API/Index.js";
 const initialValues = {
   title: "",
   subtitle: "",
+  video: "",
   description: "",
   cast: "",
   age_limit: "",
 };
-const VideoUpload = () => {
+const VideoUpload = ({ allCartifi }) => {
   const [formData, setFormData] = useState(initialValues);
   const [videoData, setVideoData] = useState("");
 
@@ -18,27 +19,21 @@ const VideoUpload = () => {
 
   const imageUploading = (e) => {
     let images = e.target.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      setVideoData(reader.result);
-    };
-    reader.readAsDataURL(images);
+
+    setVideoData(images);
   };
 
   const uploadVideo = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {
-      const reqObj = {
-        title: formData.title,
-        subtitle: formData.subtitle,
-        video: videoData,
-        description: formData.description,
-        cast: formData.cast,
-        age_limit: formData.age_limit,
-      };
-      console.log("reqObj", reqObj);
-      const response = await API.creatorVideoAdd(reqObj, header);
-      console.log("response", response);
+      const formDataReq = new FormData();
+      formDataReq.append("video", videoData);
+      formDataReq.append("title", formData.title);
+      formDataReq.append("subtitle", formData.subtitle);
+      formDataReq.append("description", formData.description);
+      formDataReq.append("cast", formData.cast);
+      formDataReq.append("age_limit", formData.age_limit);
+      const response = await API.creatorVideoAdd(formDataReq, header);
     } catch (error) {}
   };
 
@@ -85,29 +80,21 @@ const VideoUpload = () => {
             <label for="" class="w-100 mb-1">
               Choose age limit
             </label>
-            <div class="form-check col-md-4">
-              <input
-                type="radio"
-                class="form-check-input"
-                id="radio1"
-                name="optradio"
-                value="option1"
-              />
-              Option 1<label class="form-check-label" for="radio1"></label>
-            </div>
-            <div class="form-check col-md-4">
-              <input
-                type="radio"
-                class="form-check-input"
-                id="radio2"
-                name="optradio"
-                value="option2"
-              />
-              Option 2<label class="form-check-label" for="radio2"></label>
-            </div>
-            <div class="form-check col-md-4">
-              <input type="radio" class="form-check-input" />
-              Option 3<label class="form-check-label"></label>
+            <div class="form-checkss col-md-4">
+              {allCartifi.length === 0
+                ? ""
+                : allCartifi.map((item, index) => (
+                    <label class="form-check-label" for={index}>
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        id={index}
+                        name="optradio"
+                        value="option1"
+                      />
+                      {item.abbr}
+                    </label>
+                  ))}
             </div>
           </div>
         </div>
@@ -136,6 +123,7 @@ const VideoUpload = () => {
             <input
               id="upload_image_background"
               onChange={imageUploading}
+              name="video"
               data-post-name="image_background"
               data-post-url="https://someplace.com/image/uploads/backgrounds/"
               class="position-absolute invisible"

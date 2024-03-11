@@ -1414,6 +1414,9 @@ footer {
   z-index: 1;
   top: 10px;
 }
+.text-lights {
+  color: var(--secondary-color);
+}
 .avatar-upload .avatar-edit input {
   display: none;
 }
@@ -1508,4 +1511,10 @@ footer {
 .form-check,
 .upload_dropZone .btn {
   font-size: 90%;
+}
+.form-check-label {
+  margin-right: 10px;
+}
+.form-check-label input {
+  margin-right: 4px;
 }
