@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ProfileSection from "./ProfileSection";
 import * as API from "../../API/Index.js";
 
-const Introductions = () => {
+const Introductions = ({ formData }) => {
   const [allCountryData, setAllCountryData] = useState([]);
   const [allStateData, setAllStateData] = useState([]);
   const [allCityData, setAllCityData] = useState([]);
@@ -17,10 +17,14 @@ const Introductions = () => {
   const [stateData, setStateData] = useState("");
   const [cityData, setCityData] = useState("");
   const navigate = useNavigate();
-
+  console.log("formData", formData);
   return (
     <>
-      <ProfileSection inbanner={inbanner} userImg={userImg} />
+      <ProfileSection
+        formData={formData}
+        inbanner={inbanner}
+        userImg={userImg}
+      />
       <section>
         <div class="container-fluid">
           <div class="row justify-content-center">

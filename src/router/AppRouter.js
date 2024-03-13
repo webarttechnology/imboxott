@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Header from "../components/Header";
@@ -14,11 +14,28 @@ import Forgotpass from "../pages/Auth/Forgotpass";
 import Creater from "../pages/Auth/Creater";
 import Introductions from "../pages/Creator/Introduction";
 import Myaccount from "../pages/Creator/Myaccount";
+import * as API from "../API/Index";
 const AppRouter = () => {
   const [isUser, setIsuser] = useState(0);
+  const [formData, setFormData] = useState([]);
   const [isLogin, setIsLogin] = useState(
     JSON.parse(localStorage.getItem("isLogin"))
   );
+
+  const userDataGetById = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const response = await API.getuserDataID(
+        localStorage.getItem("__userId"),
+        header
+      );
+      console.log("response", response);
+      setFormData(response.data.data);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    userDataGetById();
+  }, []);
   return (
     <>
       <Router>
@@ -38,7 +55,10 @@ const AppRouter = () => {
               path="/creator/sign-up"
               element={<Creater isUser={isUser} />}
             />
-            <Route path="/creator/my-account" element={<Introductions />} />
+            <Route
+              path="/creator/my-account"
+              element={<Introductions formData={formData} />}
+            />
             <Route path="/forgot-password" element={<Forgotpass />} />
             <Route path="/profile" element={<Myaccount />} />
           </Routes>
@@ -54,7 +74,10 @@ const AppRouter = () => {
               path="/creator/sign-up"
               element={<Creater isUser={isUser} />}
             />
-            <Route path="/creator/my-account" element={<Introductions />} />
+            <Route
+              path="/creator/my-account"
+              element={<Introductions formData={formData} />}
+            />
             <Route path="/forgot-password" element={<Forgotpass />} />
             <Route path="/profile" element={<Myaccount />} />
           </Routes>
