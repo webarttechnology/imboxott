@@ -2,7 +2,7 @@ import React from "react";
 import { logos } from "../AppUtilities";
 import { Link, NavLink } from "react-router-dom";
 
-const Header = ({ setIsuser }) => {
+const Header = ({ setIsuser, isLogin }) => {
   return (
     <>
       <header>
@@ -47,7 +47,7 @@ const Header = ({ setIsuser }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/login">
+                  <Link to={isLogin ? "/profile" : "/login"}>
                     <i class="bi bi-person-fill"></i>
                   </Link>
                 </li>

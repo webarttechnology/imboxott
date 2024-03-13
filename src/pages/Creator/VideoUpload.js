@@ -80,7 +80,7 @@ const VideoUpload = ({ allCartifi }) => {
             <label for="" class="w-100 mb-1">
               Choose age limit
             </label>
-            <div class="form-checkss col-md-4">
+            <div class="form-checkss">
               {allCartifi.length === 0
                 ? ""
                 : allCartifi.map((item, index) => (

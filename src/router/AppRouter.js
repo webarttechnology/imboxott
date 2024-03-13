@@ -16,27 +16,50 @@ import Introductions from "../pages/Creator/Introduction";
 import Myaccount from "../pages/Creator/Myaccount";
 const AppRouter = () => {
   const [isUser, setIsuser] = useState(0);
-
+  const [isLogin, setIsLogin] = useState(
+    JSON.parse(localStorage.getItem("isLogin"))
+  );
   return (
     <>
       <Router>
-        <Header setIsuser={setIsuser} />
+        <Header
+          setIsuser={setIsuser}
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+        />
         <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movie-list" element={<MovieList />} />
-          <Route path="/movie-details" element={<MovieDetails />} />
-          <Route path="/introduction" element={<Introdution />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<Signup isUser={isUser} />} />
-          <Route
-            path="/creator/sign-up"
-            element={<Creater isUser={isUser} />}
-          />
-          <Route path="/creator/my-account" element={<Introductions />} />
-          <Route path="/forgot-password" element={<Forgotpass />} />
-          <Route path="/profile" element={<Myaccount />} />
-        </Routes>
+        {isLogin ? (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movie-list" element={<MovieList />} />
+            <Route path="/movie-details" element={<MovieDetails />} />
+            <Route path="/introduction" element={<Introdution />} />
+            <Route
+              path="/creator/sign-up"
+              element={<Creater isUser={isUser} />}
+            />
+            <Route path="/creator/my-account" element={<Introductions />} />
+            <Route path="/forgot-password" element={<Forgotpass />} />
+            <Route path="/profile" element={<Myaccount />} />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movie-list" element={<MovieList />} />
+            <Route path="/movie-details" element={<MovieDetails />} />
+            <Route path="/introduction" element={<Introdution />} />
+            <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
+            <Route path="/sign-up" element={<Signup isUser={isUser} />} />
+            <Route
+              path="/creator/sign-up"
+              element={<Creater isUser={isUser} />}
+            />
+            <Route path="/creator/my-account" element={<Introductions />} />
+            <Route path="/forgot-password" element={<Forgotpass />} />
+            <Route path="/profile" element={<Myaccount />} />
+          </Routes>
+        )}
+
         <Footer />
       </Router>
     </>
