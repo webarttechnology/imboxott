@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as API from "../../API/Index.js";
+import { MESSAGE } from "../../schemas/Validation.js";
+import { BeatLoader } from "react-spinners";
 const initialValues = {
   title: "",
   subtitle: "",
@@ -11,19 +13,27 @@ const initialValues = {
 const VideoUpload = ({ allCartifi }) => {
   const [formData, setFormData] = useState(initialValues);
   const [videoData, setVideoData] = useState("");
+  const [cartiData, setCartiData] = useState("");
+
+  const [isLoder, setIsLoder] = useState(false);
 
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
+    setIsLoder(false);
     setFormData({ ...formData, [name]: value });
   };
-
+  const cartihandalerChanges = async (data) => {
+    setCartiData(data);
+    setIsLoder(false);
+  };
   const imageUploading = (e) => {
     let images = e.target.files[0];
-
+    setIsLoder(false);
     setVideoData(images);
   };
 
   const uploadVideo = async () => {
+    setIsLoder(true);
     const header = localStorage.getItem("_tokenCode");
     try {
       const formDataReq = new FormData();
@@ -32,8 +42,15 @@ const VideoUpload = ({ allCartifi }) => {
       formDataReq.append("subtitle", formData.subtitle);
       formDataReq.append("description", formData.description);
       formDataReq.append("cast", formData.cast);
-      formDataReq.append("age_limit", formData.age_limit);
+      formDataReq.append("age_limit", cartiData);
       const response = await API.creatorVideoAdd(formDataReq, header);
+      if (response.data.success === 1) {
+        setIsLoder(false);
+        MESSAGE(response.data.msg, 1);
+      } else {
+        setIsLoder(false);
+      }
+      console.log("response", response);
     } catch (error) {}
   };
 
@@ -89,8 +106,8 @@ const VideoUpload = ({ allCartifi }) => {
                         type="radio"
                         class="form-check-input"
                         id={index}
-                        name="optradio"
-                        value="option1"
+                        onChange={() => cartihandalerChanges(item.abbr)}
+                        name="age_limit"
                       />
                       {item.abbr}
                     </label>
@@ -141,13 +158,19 @@ const VideoUpload = ({ allCartifi }) => {
             <div class="upload_gallery d-flex flex-wrap justify-content-center gap-2 mb-0"></div>
           </fieldset>
           <div class="text-end align-self-end">
-            <button
-              type="button"
-              class="btn btn btn-secondary2 mt-3"
-              onClick={uploadVideo}
-            >
-              Upload
-            </button>
+            {isLoder ? (
+              <button type="button" class="btn btn btn-secondary2 mt-3">
+                <BeatLoader color="#fff" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                class="btn btn btn-secondary2 mt-3"
+                onClick={uploadVideo}
+              >
+                Upload
+              </button>
+            )}
           </div>
         </div>
       </div>

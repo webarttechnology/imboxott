@@ -15,6 +15,8 @@ const initialValues = {
   address: "",
   phone: "",
   user_name: "",
+  profile_img: "",
+  banner_img: "",
 };
 const Myaccount = () => {
   const location = useLocation();
@@ -25,10 +27,18 @@ const Myaccount = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialValues);
   const [allCartifi, setAllCartifi] = useState("");
-
   const [countryData, setCountryData] = useState("");
   const [stateData, setStateData] = useState("");
   const [cityData, setCityData] = useState("");
+  const [profieData, setProfieData] = useState("");
+  const [coverData, setCoverData] = useState("");
+
+  const handalerChangespro = async (e) => {
+    setProfieData(e.target.files[0]);
+  };
+  const handalerChangescov = async (e) => {
+    setCoverData(e.target.files[0]);
+  };
 
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
@@ -83,11 +93,13 @@ const Myaccount = () => {
 
   const userdataUpdate = async () => {
     const header = localStorage.getItem("_tokenCode");
-    console.log("formData.city", formData.city);
+
     try {
       const formDataReq = new FormData();
       formDataReq.append("name", formData.name);
       formDataReq.append("user_name", formData.user_name);
+      formDataReq.append("profile_img", profieData);
+      formDataReq.append("banner_img", coverData);
       formDataReq.append(
         "city",
         typeof cityData === "number" ? cityData : formData.city
@@ -104,9 +116,6 @@ const Myaccount = () => {
       );
       formDataReq.append("address", formData.address);
       formDataReq.append("phone", formData.age_limit);
-      formDataReq.append("profile_img", formData.age_limit);
-      formDataReq.append("banner_img", formData.age_limit);
-      console.log("formDataReq", formDataReq);
 
       const response = await API.getuser_update(formDataReq, header);
       console.log("response", response);
@@ -167,6 +176,36 @@ const Myaccount = () => {
                           <i class="fa-solid fa-circle-play"></i> Video Upload
                         </button>
                       </li>
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link"
+                          id="yseries-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#yseries-pane"
+                          type="button"
+                          role="tab"
+                          aria-controls="yseries-pane"
+                          aria-selected="false"
+                        >
+                          <i class="fa-solid fa-file-video"></i>
+                          Series Upload
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link"
+                          id="award-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#award-pane"
+                          type="button"
+                          role="tab"
+                          aria-controls="award-pane"
+                          aria-selected="false"
+                        >
+                          <i class="fa-solid fa-award"></i>
+                          Awards
+                        </button>
+                      </li>
                     </ul>
                     <div
                       class="tab-content accordion col-sm-9"
@@ -181,21 +220,6 @@ const Myaccount = () => {
                       >
                         <h3 class="mb-3">Edit Your profile</h3>
                         <div class="row">
-                          {/* <div class="mb-3 col-sm-12">
-                            <div class="avatar-upload">
-                              <div class="avatar-edit">
-                                <input
-                                  type="file"
-                                  id="imageUpload"
-                                  accept=".png, .jpg, .jpeg"
-                                />
-                                <label for="imageUpload"></label>
-                              </div>
-                              <div class="avatar-preview">
-                                <div id="imagePreview"></div>
-                              </div>
-                            </div>
-                          </div> */}
                           <div class="mb-3 col-sm-6">
                             <label>Name </label>
                             <input
@@ -216,6 +240,28 @@ const Myaccount = () => {
                               name="user_name"
                               value={formData.user_name}
                               onChange={handalerChanges}
+                            />
+                          </div>
+                          <div className="mb-3 col-sm-6">
+                            <label>Profile image </label>
+                            <input
+                              type="file"
+                              multiple
+                              placeholder="Enter Your user name"
+                              class="form-control"
+                              name="profile_img"
+                              onChange={handalerChangespro}
+                            />
+                          </div>
+                          <div className="mb-3 col-sm-6">
+                            <label>Cover image</label>
+                            <input
+                              type="file"
+                              multiple
+                              placeholder="Enter Your user name"
+                              class="form-control"
+                              name="banner_img"
+                              onChange={handalerChangescov}
                             />
                           </div>
                           <div class="mb-3 col-sm-6">
@@ -346,6 +392,24 @@ const Myaccount = () => {
                         tabindex="0"
                       >
                         <VideoUpload allCartifi={allCartifi} />
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="yseries-pane"
+                        role="tabpanel"
+                        aria-labelledby="series-tab"
+                        tabindex="0"
+                      >
+                        my srise
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="award-pane"
+                        role="tabpanel"
+                        aria-labelledby="award-tab"
+                        tabindex="0"
+                      >
+                        my award
                       </div>
                     </div>
                   </div>

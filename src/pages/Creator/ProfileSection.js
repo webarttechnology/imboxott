@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { IMG } from "../../API/constant";
 
 const ProfileSection = ({ userImg, inbanner, formData }) => {
   return (
@@ -14,7 +15,11 @@ const ProfileSection = ({ userImg, inbanner, formData }) => {
               <div class="users relative">
                 <center>
                   <span class="main_User">
-                    <img src={userImg} alt="" class="w-100" />
+                    <img
+                      src={IMG + formData.profile_img}
+                      alt=""
+                      class="w-100"
+                    />
                     <span class="mail">
                       <i class="bi bi-envelope"></i>
                     </span>

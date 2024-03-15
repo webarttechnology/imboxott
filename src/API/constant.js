@@ -3,7 +3,7 @@
 export const CURRENCY = "$";
 export const TIMEZONE = "America/Los_Angeles";
 //export const NOIMG = image;
-export const IMG = "https://imboxo.webartechnology.com";
+export const IMG = "https://imboxo.webartechnology.com/uploads/";
 // ? ====== BASE URL ======
 export const URL = "https://imboxo.webartechnology.com/api";
 
