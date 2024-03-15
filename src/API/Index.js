@@ -141,3 +141,15 @@ export const allFlimeCartfikt = async (header) => {
     return e.response;
   }
 };
+
+export const creatorSerise = async (data, header) => {
+  try {
+    const url = c.URL + "/create-series";
+    const res = await axios.post(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

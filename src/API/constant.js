@@ -1,8 +1,9 @@
-//import image from "../images/noImg.png";
-
+import image from "../assets/images/noImage.png";
+import bimage from "../assets/images/luckylady.jpg";
 export const CURRENCY = "$";
 export const TIMEZONE = "America/Los_Angeles";
-//export const NOIMG = image;
+export const NOIMG = image;
+export const BNOIMG = bimage;
 export const IMG = "https://imboxo.webartechnology.com/uploads/";
 // ? ====== BASE URL ======
 export const URL = "https://imboxo.webartechnology.com/api";

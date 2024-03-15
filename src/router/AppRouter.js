@@ -15,6 +15,7 @@ import Creater from "../pages/Auth/Creater";
 import Introductions from "../pages/Creator/Introduction";
 import Myaccount from "../pages/Creator/Myaccount";
 import * as API from "../API/Index";
+import Serise from "../pages/Creator/Serise";
 const AppRouter = () => {
   const [isUser, setIsuser] = useState(0);
   const [formData, setFormData] = useState([]);
@@ -51,6 +52,7 @@ const AppRouter = () => {
             <Route path="/movie-list" element={<MovieList />} />
             <Route path="/movie-details" element={<MovieDetails />} />
             <Route path="/introduction" element={<Introdution />} />
+
             <Route
               path="/creator/sign-up"
               element={<Creater isUser={isUser} />}

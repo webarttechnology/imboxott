@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router";
 import * as API from "../../API/Index.js";
 import VideoUpload from "./VideoUpload.js";
 import { MESSAGE } from "../../schemas/Validation.js";
+import Serise from "./Serise.js";
 const initialValues = {
   name: "",
   email: "",
@@ -70,16 +71,17 @@ const Myaccount = () => {
   const userDataGetById = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {
-      const cartResponse = await API.allFlimeCartfikt(header);
-      console.log("cartResponse", cartResponse);
-      setAllCartifi(cartResponse.data.data);
-      const cresponse = await API.allCountry(header);
-      setAllCountryData(cresponse.data.data);
       const response = await API.getuserDataID(
         localStorage.getItem("__userId"),
         header
       );
       setFormData(response.data.data);
+      const cartResponse = await API.allFlimeCartfikt(header);
+      console.log("cartResponse", cartResponse);
+      setAllCartifi(cartResponse.data.data);
+      const cresponse = await API.allCountry(header);
+      setAllCountryData(cresponse.data.data);
+
       setGetUserData(response.data.data);
       if (response.data.is_login === false) {
         localStorage.removeItem("_tokenCode");
@@ -188,7 +190,7 @@ const Myaccount = () => {
                           aria-selected="false"
                         >
                           <i class="fa-solid fa-file-video"></i>
-                          Series Upload
+                          Series
                         </button>
                       </li>
                       <li class="nav-item" role="presentation">
@@ -400,7 +402,7 @@ const Myaccount = () => {
                         aria-labelledby="series-tab"
                         tabindex="0"
                       >
-                        my srise
+                        <Serise />
                       </div>
                       <div
                         class="tab-pane fade"

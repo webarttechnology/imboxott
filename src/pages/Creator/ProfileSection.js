@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IMG } from "../../API/constant";
+import { BNOIMG, IMG, NOIMG } from "../../API/constant";
 
 const ProfileSection = ({ userImg, inbanner, formData }) => {
   return (
@@ -10,13 +10,25 @@ const ProfileSection = ({ userImg, inbanner, formData }) => {
           <div class="row justify-content-center">
             <div class="col-12 col-sm-11">
               <div class="innerBanner_img_wrap">
-                <img src={inbanner} alt="" class="w-100" />
+                <img
+                  src={
+                    formData.banner_img === ""
+                      ? BNOIMG
+                      : IMG + formData.banner_img
+                  }
+                  alt=""
+                  class="w-100"
+                />
               </div>
               <div class="users relative">
                 <center>
                   <span class="main_User">
                     <img
-                      src={IMG + formData.profile_img}
+                      src={
+                        formData.profile_img === ""
+                          ? NOIMG
+                          : IMG + formData.profile_img
+                      }
                       alt=""
                       class="w-100"
                     />
