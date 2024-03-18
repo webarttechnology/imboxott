@@ -62,7 +62,10 @@ const AppRouter = () => {
               element={<Introductions formData={formData} />}
             />
             <Route path="/forgot-password" element={<Forgotpass />} />
-            <Route path="/profile" element={<Myaccount />} />
+            <Route
+              path="/profile"
+              element={<Myaccount setIsLogin={setIsLogin} />}
+            />
           </Routes>
         ) : (
           <Routes>
@@ -81,7 +84,10 @@ const AppRouter = () => {
               element={<Introductions formData={formData} />}
             />
             <Route path="/forgot-password" element={<Forgotpass />} />
-            <Route path="/profile" element={<Myaccount />} />
+            <Route
+              path="/profile"
+              element={<Myaccount setIsLogin={setIsLogin} />}
+            />
           </Routes>
         )}
 

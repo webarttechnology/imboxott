@@ -1536,3 +1536,12 @@ footer {
 .form-check-label input {
   margin-right: 4px;
 }
+.logouts {
+  width: 100%;
+  background-color: #ff3531;
+  border-radius: 5px;
+  margin-top: 2em;
+}
+.loader {
+  margin-top: 40px;
+}

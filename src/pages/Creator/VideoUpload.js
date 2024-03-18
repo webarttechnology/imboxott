@@ -56,7 +56,7 @@ const VideoUpload = ({ allCartifi }) => {
 
   return (
     <>
-      <h3 class="mb-3">Video Uploads</h3>
+      <h4 class="mb-3">Video Uploads</h4>
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">

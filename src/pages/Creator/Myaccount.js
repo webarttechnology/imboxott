@@ -7,6 +7,7 @@ import * as API from "../../API/Index.js";
 import VideoUpload from "./VideoUpload.js";
 import { MESSAGE } from "../../schemas/Validation.js";
 import Serise from "./Serise.js";
+import { BeatLoader } from "react-spinners";
 const initialValues = {
   name: "",
   email: "",
@@ -19,13 +20,14 @@ const initialValues = {
   profile_img: "",
   banner_img: "",
 };
-const Myaccount = () => {
-  const location = useLocation();
+const Myaccount = ({ setIsLogin }) => {
+  const navigate = useNavigate();
+  const [isLoder, setIsLoder] = useState(false);
   const [getUserData, setGetUserData] = useState("");
   const [allCountryData, setAllCountryData] = useState([]);
   const [allStateData, setAllStateData] = useState([]);
   const [allCityData, setAllCityData] = useState([]);
-  const navigate = useNavigate();
+
   const [formData, setFormData] = useState(initialValues);
   const [allCartifi, setAllCartifi] = useState("");
   const [countryData, setCountryData] = useState("");
@@ -36,12 +38,15 @@ const Myaccount = () => {
 
   const handalerChangespro = async (e) => {
     setProfieData(e.target.files[0]);
+    setIsLoder(false);
   };
   const handalerChangescov = async (e) => {
     setCoverData(e.target.files[0]);
+    setIsLoder(false);
   };
 
   const handalerChanges = async (e) => {
+    setIsLoder(false);
     const { name, value } = e.target;
     const header = localStorage.getItem("_tokenCode");
     if (name === "country") {
@@ -76,13 +81,13 @@ const Myaccount = () => {
         header
       );
       setFormData(response.data.data);
+      setGetUserData(response.data.data);
       const cartResponse = await API.allFlimeCartfikt(header);
       console.log("cartResponse", cartResponse);
       setAllCartifi(cartResponse.data.data);
       const cresponse = await API.allCountry(header);
       setAllCountryData(cresponse.data.data);
 
-      setGetUserData(response.data.data);
       if (response.data.is_login === false) {
         localStorage.removeItem("_tokenCode");
         localStorage.removeItem("isLogin");
@@ -95,7 +100,7 @@ const Myaccount = () => {
 
   const userdataUpdate = async () => {
     const header = localStorage.getItem("_tokenCode");
-
+    setIsLoder(true);
     try {
       const formDataReq = new FormData();
       formDataReq.append("name", formData.name);
@@ -122,10 +127,21 @@ const Myaccount = () => {
       const response = await API.getuser_update(formDataReq, header);
       console.log("response", response);
       if (response.data.success === 1) {
+        setIsLoder(false);
         userDataGetById();
         MESSAGE(response.data.msg, 1);
       }
     } catch {}
+  };
+
+  const logout = () => {
+    localStorage.removeItem("_tokenCode");
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("__userId");
+    setIsLogin(localStorage.removeItem("isLogin"));
+    if (localStorage.getItem("isLogin") === null) {
+      navigate("/login");
+    }
   };
 
   useEffect(() => {
@@ -208,6 +224,14 @@ const Myaccount = () => {
                           Awards
                         </button>
                       </li>
+                      <div className="logout">
+                        <button
+                          onClick={logout}
+                          className="logouts btn btn-secondary2"
+                        >
+                          Logout
+                        </button>
+                      </div>
                     </ul>
                     <div
                       class="tab-content accordion col-sm-9"
@@ -220,7 +244,7 @@ const Myaccount = () => {
                         aria-labelledby="introduction-tab"
                         tabindex="0"
                       >
-                        <h3 class="mb-3">Edit Your profile</h3>
+                        <h4 class="mb-3">Edit Your profile</h4>
                         <div class="row">
                           <div class="mb-3 col-sm-6">
                             <label>Name </label>
@@ -376,13 +400,22 @@ const Myaccount = () => {
                           </div>
 
                           <div class="mt-3 text-center col-12">
-                            <button
-                              type="button"
-                              class="btn btn btn-secondary2 mt-3"
-                              onClick={userdataUpdate}
-                            >
-                              Update
-                            </button>
+                            {isLoder ? (
+                              <button
+                                type="button"
+                                class="btn btn btn-secondary2 mt-3"
+                              >
+                                <BeatLoader color="#fff" />
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                class="btn btn btn-secondary2 mt-3"
+                                onClick={userdataUpdate}
+                              >
+                                Update
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -402,7 +435,7 @@ const Myaccount = () => {
                         aria-labelledby="series-tab"
                         tabindex="0"
                       >
-                        <Serise />
+                        <Serise getUserData={getUserData} />
                       </div>
                       <div
                         class="tab-pane fade"
