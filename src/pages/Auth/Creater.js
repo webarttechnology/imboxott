@@ -64,7 +64,7 @@ const Creater = ({ setIsLogin, isUser }) => {
       if (response.data.success === 1) {
         setIsloader(false);
         MESSAGE(response.data.msg, 1);
-        navigate("/creator/my-account");
+        navigate("/login");
       } else {
         setIsloader(false);
         MESSAGE(response.data.msg);

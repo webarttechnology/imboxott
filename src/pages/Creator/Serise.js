@@ -71,9 +71,13 @@ const Serise = ({ getUserData }) => {
     } catch (error) {}
   };
 
+  const pageshowhide = () => {
+    setSeriseShow(!seriseShow);
+  };
+
   return (
     <>
-      <div className="">
+      <div className={seriseShow ? "d-none" : ""}>
         <div className="row">
           <div className="col-md-9">
             <h4 class="mb-3">Series Uploads</h4>
@@ -81,7 +85,7 @@ const Serise = ({ getUserData }) => {
           <div className="col-md-3 text-end">
             <button
               type="button"
-              onClick={() => setSeriseShow(!seriseShow)}
+              onClick={pageshowhide}
               class="btn btn btn-secondary2"
             >
               View Series
@@ -150,8 +154,8 @@ const Serise = ({ getUserData }) => {
           </div>
         </div>
       </div>
-      <div className="row">
-        <AllSerise getUserData={getUserData} />
+      <div className={seriseShow === false ? "d-none" : "row"}>
+        <AllSerise pageshowhide={pageshowhide} getUserData={getUserData} />
       </div>
     </>
   );

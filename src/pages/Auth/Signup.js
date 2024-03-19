@@ -70,7 +70,7 @@ const Signup = ({ setIsLogin, isUser }) => {
       if (response.data.success === 1) {
         setIsloader(false);
         MESSAGE(response.data.msg, 1);
-        navigate("/");
+        navigate("/login");
       } else {
         MESSAGE(response.data.msg);
         setIsloader(false);
