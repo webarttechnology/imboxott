@@ -6,18 +6,32 @@ import ProfileSection from "./ProfileSection";
 import * as API from "../../API/Index.js";
 
 const Introductions = ({ formData }) => {
-  const [allCountryData, setAllCountryData] = useState([]);
-  const [allStateData, setAllStateData] = useState([]);
-  const [allCityData, setAllCityData] = useState([]);
-
-  const [orderData, setOrderData] = useState([]);
-
   const [getUserData, setGetUserData] = useState("");
-  const [countryData, setCountryData] = useState("");
-  const [stateData, setStateData] = useState("");
-  const [cityData, setCityData] = useState("");
   const navigate = useNavigate();
-  console.log("formData", formData);
+  const userDataGetById = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const response = await API.getuserDataID(
+        localStorage.getItem("__userId"),
+        header
+      );
+
+      setGetUserData(response.data.data);
+
+      if (response.data.is_login === false) {
+        localStorage.removeItem("_tokenCode");
+        localStorage.removeItem("isLogin");
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/login");
+        }
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    userDataGetById();
+  }, []);
+
   return (
     <>
       <ProfileSection

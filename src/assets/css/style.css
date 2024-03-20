@@ -1545,3 +1545,6 @@ footer {
 .loader {
   margin-top: 40px;
 }
+.videobutton {
+  cursor: pointer;
+}

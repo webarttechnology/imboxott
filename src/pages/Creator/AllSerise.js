@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { IMG } from "../../API/constant";
-
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 const AllSerise = ({ getUserData, pageshowhide }) => {
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
   return (
     <>
       <div className="row justify-content-end">
@@ -22,6 +27,7 @@ const AllSerise = ({ getUserData, pageshowhide }) => {
             <th scope="col">Title</th>
             <th scope="col">Thumbnail</th>
             <th scope="col">Video</th>
+            <th scope="col">Episode</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -31,14 +37,25 @@ const AllSerise = ({ getUserData, pageshowhide }) => {
             : getUserData.series.map((item, index) => (
                 <tr>
                   <th>1</th>
-                  <td width="300">{item.title}</td>
-                  <td width="250">
+                  <td width="200">{item.title}</td>
+                  <td width="200">
                     <img style={{ width: "15%" }} src={IMG + item.img} />
                   </td>
                   <td width="100">
-                    <i class="fa-solid fa-video"></i>
+                    <span className="videobutton" onClick={onOpenModal}>
+                      {" "}
+                      <i class="fa-solid fa-video"></i>
+                    </span>
                   </td>
-                  <td>@mdo</td>
+                  <td width="100">
+                    <span className="videobutton" onClick={onOpenModal}>
+                      {" "}
+                      <i class="fa-solid fa-video"></i>
+                    </span>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-trash"></i>
+                  </td>
                 </tr>
               ))}
         </tbody>
