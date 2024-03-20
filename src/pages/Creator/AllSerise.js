@@ -7,7 +7,6 @@ import Episode from "./Episode";
 const AllSerise = ({ getUserData, pageshowhide, setSeriseShow }) => {
   const [open, setOpen] = useState(false);
   const [uniqId, setUniqId] = useState("");
-  console.log("hello", getUserData.series);
 
   const [episodPsage, setEpisodPsage] = useState(false);
 
@@ -24,7 +23,7 @@ const AllSerise = ({ getUserData, pageshowhide, setSeriseShow }) => {
     <>
       {episodPsage ? (
         <>
-          <Episode uniqId={uniqId} />
+          <Episode getUserData={getUserData} uniqId={uniqId} />
         </>
       ) : (
         <>

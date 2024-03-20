@@ -7,7 +7,7 @@ const initialValues = {
   title: "",
   description: "",
 };
-const Episode = ({ uniqId }) => {
+const Episode = ({ uniqId, getUserData }) => {
   const [isVideoLoad, setIsVideoLoad] = useState(false);
   const [formData, setFormData] = useState(initialValues);
   const [seriseShow, setSeriseShow] = useState(false);
@@ -58,96 +58,98 @@ const Episode = ({ uniqId }) => {
   };
   return (
     <>
-      <div className="row">
-        <div className="col-md-9">
-          <h4 class="mb-3">Episode Uploads</h4>
-        </div>
-        <div className="col-md-3 text-end">
-          <button
-            type="button"
-            onClick={pageshowhide}
-            class="btn btn btn-secondary2"
-          >
-            View Episode
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label>Title</label>
-          <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id=""
-              placeholder="Series Title"
-              onChange={handalerChanges}
-              value={formData.title}
-              name="title"
-            />
+      <div className={seriseShow ? "d-none" : ""}>
+        <div className="row">
+          <div className="col-md-9">
+            <h4 class="mb-3">Episode Uploads</h4>
+          </div>
+          <div className="col-md-3 text-end">
+            <button
+              type="button"
+              onClick={pageshowhide}
+              class="btn btn btn-secondary2"
+            >
+              View Episode
+            </button>
           </div>
         </div>
-        <div class="col-md-6 d-none">
-          <div class="mb-3">
-            <label>Thumbnail</label>
-            <input
-              type="file"
-              class="form-control"
-              placeholder="Series Title"
-              onChange={cartihandalerChanges}
-            />
+        <div class="row">
+          <div class="col-md-6">
+            <label>Title</label>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id=""
+                placeholder="Series Title"
+                onChange={handalerChanges}
+                value={formData.title}
+                name="title"
+              />
+            </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label>Description</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Description"
-              onChange={handalerChanges}
-              name="description"
-              value={formData.description}
-            />
+          <div class="col-md-6 d-none">
+            <div class="mb-3">
+              <label>Thumbnail</label>
+              <input
+                type="file"
+                class="form-control"
+                placeholder="Series Title"
+                onChange={cartihandalerChanges}
+              />
+            </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label>Video</label>
-            <input
-              type="file"
-              class="form-control"
-              placeholder="Series Title"
-              onChange={imageUploading}
-              disabled={isVideoLoad ? true : false}
-            />
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Description</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Description"
+                onChange={handalerChanges}
+                name="description"
+                value={formData.description}
+              />
+            </div>
           </div>
-        </div>
-        {/* <div className="col-md-6">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Video</label>
+              <input
+                type="file"
+                class="form-control"
+                placeholder="Series Title"
+                onChange={imageUploading}
+                disabled={isVideoLoad ? true : false}
+              />
+            </div>
+          </div>
+          {/* <div className="col-md-6">
           <div className="loader">
             {isVideoLoad ? <BeatLoader color="#fff" /> : ""}
           </div>
         </div> */}
-        <div className="col-md-12">
-          <div class="text-end align-self-end">
-            {isLoder ? (
-              <button type="button" class="btn btn btn-secondary2 mt-3">
-                <BeatLoader color="#fff" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                class="btn btn btn-secondary2 mt-3"
-                onClick={uploadVideo}
-              >
-                Upload
-              </button>
-            )}
+          <div className="col-md-12">
+            <div class="text-end align-self-end">
+              {isLoder ? (
+                <button type="button" class="btn btn btn-secondary2 mt-3">
+                  <BeatLoader color="#fff" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  class="btn btn btn-secondary2 mt-3"
+                  onClick={uploadVideo}
+                >
+                  Upload
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div className="row">
-        <AllEpisode />
+      <div className={seriseShow === false ? "d-none" : "row"}>
+        <AllEpisode uniqId={uniqId} getUserData={getUserData} />
       </div>
     </>
   );

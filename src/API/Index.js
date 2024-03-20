@@ -165,3 +165,16 @@ export const episodeAdd = async (data, header) => {
     return e.response;
   }
 };
+
+export const getEpisode = async (data, header) => {
+  try {
+    const url = c.URL + "/get-episodes/" + data;
+    console.log("url", url);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
