@@ -16,6 +16,7 @@ import Introductions from "../pages/Creator/Introduction";
 import Myaccount from "../pages/Creator/Myaccount";
 import * as API from "../API/Index";
 import Serise from "../pages/Creator/Serise";
+import Episode from "../pages/Creator/Episode";
 const AppRouter = () => {
   const [isUser, setIsuser] = useState(0);
   const [formData, setFormData] = useState([]);
@@ -65,6 +66,10 @@ const AppRouter = () => {
             <Route
               path="/profile"
               element={<Myaccount setIsLogin={setIsLogin} />}
+            />
+            <Route
+              path="/series/episode"
+              element={<Episode setIsLogin={setIsLogin} />}
             />
           </Routes>
         ) : (

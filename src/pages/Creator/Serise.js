@@ -155,7 +155,11 @@ const Serise = ({ getUserData }) => {
         </div>
       </div>
       <div className={seriseShow === false ? "d-none" : "row"}>
-        <AllSerise pageshowhide={pageshowhide} getUserData={getUserData} />
+        <AllSerise
+          setSeriseShow={setSeriseShow}
+          pageshowhide={pageshowhide}
+          getUserData={getUserData}
+        />
       </div>
     </>
   );

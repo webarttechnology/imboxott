@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BNOIMG, IMG, NOIMG } from "../../API/constant";
 
 const ProfileSection = ({ userImg, inbanner, formData }) => {
+  console.log("formData.banner_img", formData.banner_img);
   return (
     <>
       <section class="innerBanner">
@@ -12,7 +13,7 @@ const ProfileSection = ({ userImg, inbanner, formData }) => {
               <div class="innerBanner_img_wrap">
                 <img
                   src={
-                    formData.banner_img === ""
+                    formData.banner_img === "" || formData.banner_img === null
                       ? BNOIMG
                       : IMG + formData.banner_img
                   }
@@ -25,7 +26,8 @@ const ProfileSection = ({ userImg, inbanner, formData }) => {
                   <span class="main_User">
                     <img
                       src={
-                        formData.profile_img === ""
+                        formData.banner_img === "" ||
+                        formData.banner_img === null
                           ? NOIMG
                           : IMG + formData.profile_img
                       }

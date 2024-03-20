@@ -153,3 +153,15 @@ export const creatorSerise = async (data, header) => {
     return e.response;
   }
 };
+
+export const episodeAdd = async (data, header) => {
+  try {
+    const url = c.URL + "/add-episodes";
+    const res = await axios.post(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
