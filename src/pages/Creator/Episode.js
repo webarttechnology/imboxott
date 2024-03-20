@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { MESSAGE } from "../../schemas/Validation";
 import * as API from "../../API/Index.js";
+import AllEpisode from "./AllEpisode.js";
 const initialValues = {
   title: "",
   description: "",
@@ -144,6 +145,9 @@ const Episode = ({ uniqId }) => {
             )}
           </div>
         </div>
+      </div>
+      <div className="row">
+        <AllEpisode />
       </div>
     </>
   );
