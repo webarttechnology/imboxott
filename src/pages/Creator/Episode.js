@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { MESSAGE } from "../../schemas/Validation";
 import * as API from "../../API/Index.js";
@@ -12,7 +12,7 @@ const Episode = ({ uniqId, getUserData }) => {
   const [isVideoLoad, setIsVideoLoad] = useState(false);
   const [formData, setFormData] = useState(initialValues);
   const [seriseShow, setSeriseShow] = useState(false);
-  const [cartiData, setCartiData] = useState("");
+  const [allSeasonData, setAllSeasonData] = useState([]);
   const [videoData, setVideoData] = useState("");
   const [isLoder, setIsLoder] = useState(false);
 
@@ -20,11 +20,6 @@ const Episode = ({ uniqId, getUserData }) => {
     const { name, value } = e.target;
     setIsLoder(false);
     setFormData({ ...formData, [name]: value });
-  };
-
-  const cartihandalerChanges = async (e) => {
-    setCartiData(e.target.files[0]);
-    setIsLoder(false);
   };
 
   const imageUploading = async (e) => {
@@ -58,6 +53,19 @@ const Episode = ({ uniqId, getUserData }) => {
   const pageshowhide = () => {
     setSeriseShow(!seriseShow);
   };
+
+  const allSeason = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const response = await API.getSeason(header);
+      console.log("response", response);
+      setAllSeasonData(response.data.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    allSeason();
+  }, []);
   return (
     <>
       <div className={seriseShow ? "d-none" : ""}>
@@ -125,13 +133,10 @@ const Episode = ({ uniqId, getUserData }) => {
                 name="season"
               >
                 <option>--- Select ---</option>
+                {allSeasonData.map((item, index) => (
+                  <option value={item.id}>{item.name}</option>
+                ))}
               </select>
-              {/* <input
-                type="file"
-                class="form-control"
-                placeholder="Series Title"
-                onChange={cartihandalerChanges}
-              /> */}
             </div>
           </div>
           <div className="col-md-12">

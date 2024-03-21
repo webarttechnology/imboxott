@@ -37,7 +37,7 @@ const AllSerise = ({ getUserData, pageshowhide, setSeriseShow }) => {
                 onClick={pageshowhide}
                 class="btn btn btn-secondary2"
               >
-                back
+                Add Series
               </button>
             </div>
           </div>
@@ -79,7 +79,7 @@ const AllSerise = ({ getUserData, pageshowhide, setSeriseShow }) => {
                           className="plusEpisod"
                           onClick={() => episodPage(item.unique_id)}
                         >
-                          <i class="fa-solid fa-plus"></i>
+                          Add Episode
                         </span>
                       </td>
                     </tr>

@@ -7,7 +7,7 @@ const initialValues = {
   title: "",
   description: "",
 };
-const Serise = ({ getUserData }) => {
+const Serise = ({ getUserData, firstSerise }) => {
   const [isVideoLoad, setIsVideoLoad] = useState(false);
   const [formData, setFormData] = useState(initialValues);
   const [seriseShow, setSeriseShow] = useState(false);
@@ -75,9 +75,11 @@ const Serise = ({ getUserData }) => {
     setSeriseShow(!seriseShow);
   };
 
+  console.log("firstSerise", firstSerise);
+
   return (
     <>
-      <div className={seriseShow ? "d-none" : ""}>
+      <div className={seriseShow === false ? "d-none" : ""}>
         <div className="row">
           <div className="col-md-9">
             <h4 class="mb-3">Series Uploads</h4>
@@ -154,7 +156,8 @@ const Serise = ({ getUserData }) => {
           </div>
         </div>
       </div>
-      <div className={seriseShow === false ? "d-none" : "row"}>
+
+      <div className={seriseShow ? "d-none" : "row"}>
         <AllSerise
           setSeriseShow={setSeriseShow}
           pageshowhide={pageshowhide}

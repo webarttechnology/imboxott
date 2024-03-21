@@ -29,7 +29,7 @@ const AllEpisode = ({ uniqId, pageshowhide }) => {
             onClick={pageshowhide}
             class="btn btn btn-secondary2"
           >
-            back
+            Add Episode
           </button>
         </div>
       </div>

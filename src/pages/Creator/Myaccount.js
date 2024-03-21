@@ -8,6 +8,7 @@ import VideoUpload from "./VideoUpload.js";
 import { MESSAGE } from "../../schemas/Validation.js";
 import Serise from "./Serise.js";
 import { BeatLoader } from "react-spinners";
+import { type } from "@testing-library/user-event/dist/type/index.js";
 const initialValues = {
   name: "",
   email: "",
@@ -27,7 +28,7 @@ const Myaccount = ({ setIsLogin }) => {
   const [allCountryData, setAllCountryData] = useState([]);
   const [allStateData, setAllStateData] = useState([]);
   const [allCityData, setAllCityData] = useState([]);
-
+  const [firstSerise, setFirstSerise] = useState(true);
   const [formData, setFormData] = useState(initialValues);
   const [allCartifi, setAllCartifi] = useState("");
   const [countryData, setCountryData] = useState("");
@@ -144,6 +145,10 @@ const Myaccount = ({ setIsLogin }) => {
     }
   };
 
+  const pageshowhideSerise = () => {
+    setFirstSerise(false);
+  };
+
   useEffect(() => {
     userDataGetById();
   }, []);
@@ -157,7 +162,7 @@ const Myaccount = ({ setIsLogin }) => {
       <section>
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <div class="col-12 col-sm-11">
+            <div class="jj">
               <div class="tab_main editProfile">
                 <div class="row justify-content-center g-0">
                   <div class="col-sm-8 col-md-12 row">
@@ -191,7 +196,7 @@ const Myaccount = ({ setIsLogin }) => {
                           aria-controls="series-pane"
                           aria-selected="false"
                         >
-                          <i class="fa-solid fa-circle-play"></i> Video Upload
+                          <i class="fa-solid fa-circle-play"></i> Movie Upload
                         </button>
                       </li>
                       <li class="nav-item" role="presentation">
@@ -204,6 +209,7 @@ const Myaccount = ({ setIsLogin }) => {
                           role="tab"
                           aria-controls="yseries-pane"
                           aria-selected="false"
+                          onClick={pageshowhideSerise}
                         >
                           <i class="fa-solid fa-file-video"></i>
                           Series
@@ -435,7 +441,10 @@ const Myaccount = ({ setIsLogin }) => {
                         aria-labelledby="series-tab"
                         tabindex="0"
                       >
-                        <Serise getUserData={getUserData} />
+                        <Serise
+                          firstSerise={firstSerise}
+                          getUserData={getUserData}
+                        />
                       </div>
                       <div
                         class="tab-pane fade"
