@@ -6,6 +6,7 @@ import AllEpisode from "./AllEpisode.js";
 const initialValues = {
   title: "",
   description: "",
+  season: "",
 };
 const Episode = ({ uniqId, getUserData }) => {
   const [isVideoLoad, setIsVideoLoad] = useState(false);
@@ -31,6 +32,7 @@ const Episode = ({ uniqId, getUserData }) => {
     let images = e.target.files[0];
     setVideoData(images);
   };
+
   const uploadVideo = async () => {
     setIsLoder(true);
     const header = localStorage.getItem("_tokenCode");
@@ -39,7 +41,7 @@ const Episode = ({ uniqId, getUserData }) => {
       formDataReq.append("videos", videoData);
       formDataReq.append("title", formData.title);
       formDataReq.append("description", formData.description);
-      //formDataReq.append("img", cartiData);
+      formDataReq.append("season", formData.season);
       formDataReq.append("uniqueId", uniqId);
       formDataReq.append("type", "add");
       const response = await API.episodeAdd(formDataReq, header);
@@ -88,17 +90,7 @@ const Episode = ({ uniqId, getUserData }) => {
               />
             </div>
           </div>
-          <div class="col-md-6 d-none">
-            <div class="mb-3">
-              <label>Thumbnail</label>
-              <input
-                type="file"
-                class="form-control"
-                placeholder="Series Title"
-                onChange={cartihandalerChanges}
-              />
-            </div>
-          </div>
+
           <div class="col-md-6">
             <div class="mb-3">
               <label>Description</label>
@@ -120,15 +112,28 @@ const Episode = ({ uniqId, getUserData }) => {
                 class="form-control"
                 placeholder="Series Title"
                 onChange={imageUploading}
-                disabled={isVideoLoad ? true : false}
               />
             </div>
           </div>
-          {/* <div className="col-md-6">
-          <div className="loader">
-            {isVideoLoad ? <BeatLoader color="#fff" /> : ""}
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Season</label>
+              <select
+                class="form-control"
+                value={formData.season}
+                onChange={handalerChanges}
+                name="season"
+              >
+                <option>--- Select ---</option>
+              </select>
+              {/* <input
+                type="file"
+                class="form-control"
+                placeholder="Series Title"
+                onChange={cartihandalerChanges}
+              /> */}
+            </div>
           </div>
-        </div> */}
           <div className="col-md-12">
             <div class="text-end align-self-end">
               {isLoder ? (
@@ -149,7 +154,11 @@ const Episode = ({ uniqId, getUserData }) => {
         </div>
       </div>
       <div className={seriseShow === false ? "d-none" : "row"}>
-        <AllEpisode uniqId={uniqId} getUserData={getUserData} />
+        <AllEpisode
+          pageshowhide={pageshowhide}
+          uniqId={uniqId}
+          getUserData={getUserData}
+        />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IMG } from "../../API/constant";
 import * as API from "../../API/Index.js";
-const AllEpisode = ({ uniqId }) => {
+const AllEpisode = ({ uniqId, pageshowhide }) => {
   const [episodeData, setEpisodeData] = useState([]);
 
   const allEpisodeData = async () => {
@@ -26,7 +26,7 @@ const AllEpisode = ({ uniqId }) => {
         <div className="col-md-3 text-end mb-3">
           <button
             type="button"
-            //onClick={pageshowhide}
+            onClick={pageshowhide}
             class="btn btn btn-secondary2"
           >
             back
@@ -61,7 +61,7 @@ const AllEpisode = ({ uniqId }) => {
                   <td>
                     <i class="fa-solid fa-trash"></i>
                     <span className="plusEpisod">
-                      <i class="fa-solid fa-plus"></i>
+                      <i class="fa-solid fa-pen-to-square"></i>
                     </span>
                   </td>
                 </tr>
