@@ -156,14 +156,24 @@ const Serise = ({ getUserData, firstSerise }) => {
           </div>
         </div>
       </div>
-
-      <div className={seriseShow ? "d-none" : "row"}>
-        <AllSerise
-          setSeriseShow={setSeriseShow}
-          pageshowhide={pageshowhide}
-          getUserData={getUserData}
-        />
-      </div>
+      {firstSerise ? (
+        <div className={seriseShow ? "d-none" : "row"}>
+          <AllSerise
+            setSeriseShow={setSeriseShow}
+            pageshowhide={pageshowhide}
+            getUserData={getUserData}
+          />
+        </div>
+      ) : (
+        <div className={seriseShow ? "d-none" : "row"}>
+          <AllSerise
+            firstSerise={firstSerise}
+            setSeriseShow={setSeriseShow}
+            pageshowhide={pageshowhide}
+            getUserData={getUserData}
+          />
+        </div>
+      )}
     </>
   );
 };

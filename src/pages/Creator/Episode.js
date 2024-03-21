@@ -158,6 +158,7 @@ const Episode = ({ uniqId, getUserData }) => {
           </div>
         </div>
       </div>
+
       <div className={seriseShow === false ? "d-none" : "row"}>
         <AllEpisode
           pageshowhide={pageshowhide}

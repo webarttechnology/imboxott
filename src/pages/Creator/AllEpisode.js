@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { IMG } from "../../API/constant";
 import * as API from "../../API/Index.js";
+import Modal from "react-responsive-modal";
 const AllEpisode = ({ uniqId, pageshowhide }) => {
   const [episodeData, setEpisodeData] = useState([]);
+  const [open, setOpen] = useState(false);
 
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
   const allEpisodeData = async () => {
     const header = localStorage.getItem("_tokenCode");
 
@@ -52,10 +56,15 @@ const AllEpisode = ({ uniqId, pageshowhide }) => {
                   <td width="200">{item.title}</td>
                   <td width="200">{item.description}</td>
                   <td width="150">
-                    <span className="videobutton">
+                    <span className="videobutton" onClick={onOpenModal}>
                       {" "}
                       <i class="fa-solid fa-video"></i>
                     </span>
+                    <Modal open={open} onClose={onCloseModal} center>
+                      <video controls width="500" src={IMG + item.video} />
+                      <h4 className="videoTitle">{item.title}</h4>
+                      <p className="videoDec">{item.description}</p>
+                    </Modal>
                   </td>
 
                   <td>

@@ -28,7 +28,7 @@ const Myaccount = ({ setIsLogin }) => {
   const [allCountryData, setAllCountryData] = useState([]);
   const [allStateData, setAllStateData] = useState([]);
   const [allCityData, setAllCityData] = useState([]);
-  const [firstSerise, setFirstSerise] = useState(true);
+  const [firstSerise, setFirstSerise] = useState(false);
   const [formData, setFormData] = useState(initialValues);
   const [allCartifi, setAllCartifi] = useState("");
   const [countryData, setCountryData] = useState("");
@@ -146,7 +146,7 @@ const Myaccount = ({ setIsLogin }) => {
   };
 
   const pageshowhideSerise = () => {
-    setFirstSerise(false);
+    setFirstSerise(!firstSerise);
   };
 
   useEffect(() => {

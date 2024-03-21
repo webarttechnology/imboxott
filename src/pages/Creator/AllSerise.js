@@ -4,7 +4,7 @@ import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { Link } from "react-router-dom";
 import Episode from "./Episode";
-const AllSerise = ({ getUserData, pageshowhide, setSeriseShow }) => {
+const AllSerise = ({ getUserData, pageshowhide }) => {
   const [open, setOpen] = useState(false);
   const [uniqId, setUniqId] = useState("");
 
