@@ -9,12 +9,13 @@ const initialValues = {
   description: "",
   cast: "",
   age_limit: "",
+  thumbnail: "",
 };
 const VideoUpload = ({ allCartifi }) => {
   const [formData, setFormData] = useState(initialValues);
   const [videoData, setVideoData] = useState("");
   const [cartiData, setCartiData] = useState("");
-
+  const [movieThumbs, setMovieThumbs] = useState("");
   const [isLoder, setIsLoder] = useState(false);
 
   const handalerChanges = async (e) => {
@@ -32,6 +33,10 @@ const VideoUpload = ({ allCartifi }) => {
     setVideoData(images);
   };
 
+  const movieThumb = async (e) => {
+    let images = e.target.files[0];
+    setMovieThumbs(images);
+  };
   const uploadVideo = async () => {
     setIsLoder(true);
     const header = localStorage.getItem("_tokenCode");
@@ -43,6 +48,7 @@ const VideoUpload = ({ allCartifi }) => {
       formDataReq.append("description", formData.description);
       formDataReq.append("cast", formData.cast);
       formDataReq.append("age_limit", cartiData);
+      formDataReq.append("thumbnail", movieThumbs);
       const response = await API.creatorVideoAdd(formDataReq, header);
       if (response.data.success === 1) {
         setIsLoder(false);
@@ -56,21 +62,23 @@ const VideoUpload = ({ allCartifi }) => {
 
   return (
     <>
-      <h4 class="mb-3">Video Uploads</h4>
+      <h4 class="mb-3"> Movie Uploads</h4>
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
+            <label>Movie Title</label>
             <input
               type="text"
               class="form-control"
               id=""
-              placeholder="Video Title"
+              placeholder="Movie Title"
               onChange={handalerChanges}
               value={formData.title}
               name="title"
             />
           </div>
           <div class="mb-3">
+            <label>Sub Title</label>
             <input
               type="text"
               class="form-control"
@@ -83,6 +91,7 @@ const VideoUpload = ({ allCartifi }) => {
           </div>
 
           <div class="mb-3">
+            <label>Cast</label>
             <input
               type="text"
               class="form-control"
@@ -93,7 +102,7 @@ const VideoUpload = ({ allCartifi }) => {
               placeholder="Cast"
             />
           </div>
-          <div class="d-flex flex-wrap flex-row mt-3 justify-content-between">
+          <div class="d-flex flex-wrap flex-row mt-3 justify-content-between mb-3">
             <label for="" class="w-100 mb-1">
               Choose age limit
             </label>
@@ -114,15 +123,27 @@ const VideoUpload = ({ allCartifi }) => {
                   ))}
             </div>
           </div>
+          <div class="mb-3">
+            <label>Movie Thumbnail</label>
+            <input
+              type="file"
+              class="form-control"
+              id=""
+              onChange={movieThumb}
+              name="thumbnail"
+              placeholder="Movie Poster"
+            />
+          </div>
         </div>
 
         <div class="col-md-6">
           <div class="mb-5">
+            <label>Description</label>
             <textarea
               class="form-control"
               placeholder="Description comes here"
               id=""
-              style={{ height: 260 }}
+              style={{ height: 300 }}
               onChange={handalerChanges}
               value={formData.description}
               name="description"

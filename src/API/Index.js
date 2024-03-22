@@ -189,3 +189,13 @@ export const getSeason = async (header) => {
     return e.response;
   }
 };
+
+export const getMovie = async (header) => {
+  try {
+    const url = c.URL + "/guest/movie/list";
+    const res = await axios.get(url);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

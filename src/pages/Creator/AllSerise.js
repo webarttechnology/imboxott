@@ -7,7 +7,7 @@ import Episode from "./Episode";
 const AllSerise = ({ getUserData, pageshowhide }) => {
   const [open, setOpen] = useState(false);
   const [uniqId, setUniqId] = useState("");
-
+  console.log("getUserData", getUserData);
   const [episodPsage, setEpisodPsage] = useState(false);
 
   const onOpenModal = () => setOpen(true);
@@ -47,7 +47,7 @@ const AllSerise = ({ getUserData, pageshowhide }) => {
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Thumbnail</th>
-                <th scope="col">Video</th>
+                <th scope="col">Trailer</th>
                 <th scope="col">Episode</th>
                 <th scope="col">Action</th>
               </tr>
