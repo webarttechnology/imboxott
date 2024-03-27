@@ -17,7 +17,9 @@ const VideoUpload = ({ allCartifi }) => {
   const [cartiData, setCartiData] = useState("");
   const [movieThumbs, setMovieThumbs] = useState("");
   const [isLoder, setIsLoder] = useState(false);
+  const [duration, setDuration] = useState(0);
 
+  console.log("duration", duration);
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
     setIsLoder(false);
@@ -29,6 +31,12 @@ const VideoUpload = ({ allCartifi }) => {
   };
   const imageUploading = (e) => {
     let images = e.target.files[0];
+    const video = document.createElement("video");
+
+    video.onloadedmetadata = () => {
+      setDuration(video.duration);
+    };
+    video.src = URL.createObjectURL(images);
     setIsLoder(false);
     setVideoData(images);
   };
@@ -63,6 +71,7 @@ const VideoUpload = ({ allCartifi }) => {
   return (
     <>
       <h4 class="mb-3"> Movie Uploads</h4>
+      {duration > 0 && <p>Video duration: {duration} seconds</p>}
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">

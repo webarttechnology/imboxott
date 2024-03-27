@@ -1568,3 +1568,6 @@ footer {
   text-transform: capitalize;
   margin-top: 10px;
 }
+.banner_heading {
+  text-transform: capitalize;
+}

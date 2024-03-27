@@ -1,10 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import CastSlider from "./MovieDetailsSlider/Cast";
 import Crew from "./MovieDetailsSlider/Crew";
 import SimilerPartSlider from "./MovieDetailsSlider/SimilerPartSlider";
 import * as API from "../../API/Index.js";
 const MovieDetails = () => {
+  const location = useLocation();
+  const [allData, setAllData] = useState([]);
+  const individualMovie = async () => {
+    try {
+      const response = await API.getMovieDetils(location.state.id);
+      console.log("response", response);
+      setAllData(response.data.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    individualMovie();
+  }, []);
   return (
     <>
       <section class="movie_details_Banner">
@@ -19,7 +32,7 @@ const MovieDetails = () => {
                 />
               </span>
               <div>
-                <h1 class="banner_heading mb-3">Avengers: Infinity War</h1>
+                <h1 class="banner_heading mb-3">{allData.title}</h1>
                 <div class="clearfix"></div>
                 <span class="ratings">
                   <a href="#">
@@ -155,7 +168,7 @@ const MovieDetails = () => {
               <h3>Top reviews :</h3>
               <span>
                 <a href="#" class="text-warning">
-                  436.6K reviews >
+                  436.6K reviews
                 </a>
               </span>
               <hr class="mt-4 mb-4 w-100" />

@@ -70,7 +70,8 @@ const AllSerise = ({ getUserData, pageshowhide }) => {
                       </td>
                       <td width="150">
                         <span className="videobutton" onClick={onOpenModal}>
-                          <i class="fa-solid fa-video"></i> 10+
+                          <i class="fa-solid fa-video"></i> {""}
+                          {item.total_episodes}
                         </span>
                       </td>
                       <td>

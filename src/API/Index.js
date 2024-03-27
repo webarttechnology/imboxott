@@ -199,3 +199,13 @@ export const getMovie = async (header) => {
     return e.response;
   }
 };
+
+export const getMovieDetils = async (data) => {
+  try {
+    const url = c.URL + "/movie/details/" + data;
+    const res = await axios.get(url);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
