@@ -1571,3 +1571,11 @@ footer {
 .banner_heading {
   text-transform: capitalize;
 }
+.movieDetails .tab-content {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+.movieDetails .tab-pane {
+  padding: 0;
+}

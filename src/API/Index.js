@@ -209,3 +209,12 @@ export const getMovieDetils = async (data) => {
     return e.response;
   }
 };
+export const getMovieCastData = async (data) => {
+  try {
+    const url = c.URL + "/movie/cast/" + data;
+    const res = await axios.get(url);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

@@ -9,6 +9,7 @@ import { MESSAGE } from "../../schemas/Validation.js";
 import Serise from "./Serise.js";
 import { BeatLoader } from "react-spinners";
 import { type } from "@testing-library/user-event/dist/type/index.js";
+import MovieList from "./MovieList.js";
 const initialValues = {
   name: "",
   email: "",
@@ -36,6 +37,7 @@ const Myaccount = ({ setIsLogin }) => {
   const [cityData, setCityData] = useState("");
   const [profieData, setProfieData] = useState("");
   const [coverData, setCoverData] = useState("");
+  const [isMovie, setIsMovie] = useState(0);
 
   const handalerChangespro = async (e) => {
     setProfieData(e.target.files[0]);
@@ -432,7 +434,11 @@ const Myaccount = ({ setIsLogin }) => {
                         aria-labelledby="series-tab"
                         tabindex="0"
                       >
-                        <VideoUpload allCartifi={allCartifi} />
+                        {isMovie === 1 ? (
+                          <VideoUpload allCartifi={allCartifi} />
+                        ) : (
+                          <MovieList setIsMovie={setIsMovie} />
+                        )}
                       </div>
                       <div
                         class="tab-pane fade"

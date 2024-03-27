@@ -7,7 +7,7 @@ import Episode from "./Episode";
 const AllSerise = ({ getUserData, pageshowhide }) => {
   const [open, setOpen] = useState(false);
   const [uniqId, setUniqId] = useState("");
-  console.log("getUserData", getUserData);
+
   const [episodPsage, setEpisodPsage] = useState(false);
 
   const onOpenModal = () => setOpen(true);
